@@ -1,0 +1,265 @@
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-color);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* PAGE */
+.login-page{
+  text-align:center;
+}
+
+/* HEADER */
+.login-header h1{
+  margin:0;
+  font-size:28px;
+}
+
+.login-header p {
+  margin: 5px 0 20px;
+  color: var(--text-secondary);
+}
+
+/* CARD */
+.login-card {
+  width: 90%;
+  max-width: 380px;
+  padding: 35px 25px;
+  border-radius: 25px;
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: background 0.3s ease;
+}
+
+/* TITLE */
+.title{
+  margin-bottom:15px;
+}
+
+/* SOCIAL */
+.social-login{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.social-btn {
+  flex: 1;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-color);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* DIVIDER */
+.divider{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:10px 0;
+}
+
+.divider span {
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
+/* INPUT BOX CONTAINER */
+.input-box {
+  position: relative;
+  margin: 15px 0;
+  width: 100%;
+}
+
+/* INPUT FIELD */
+.input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--bg-color);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  outline: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  border-color: #c49963;
+  box-shadow: 0 0 10px rgba(196, 155, 99, 0.4);
+}
+
+/* LABEL (Initial State) */
+.input-box label {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  padding: 0 4px;
+  color: #888;
+  font-size: 14px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+/* FLOATING STATE */
+.input-box .input:focus + label,
+.input-box .input:not(:placeholder-shown) + label,
+.input-box .input:-webkit-autofill + label {
+  top: -2px;
+  left: 12px;
+  font-size: 12px;
+  color: #c49963;
+  background: var(--card-bg); /* Mask the border behind the label ✨ */
+  font-weight: 600;
+}
+
+/* PASSWORD EYE ICON */
+.input-box i {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
+  z-index: 11;
+}
+
+/* 🔥 CHROME AUTOFILL FIX */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover, 
+.input:-webkit-autofill:focus, 
+.input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--bg-color) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* OPTIONS */
+.options{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  margin:5px 0;
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:25px;
+  background:#c49b63;
+  color:#fff;
+  margin-top:10px;
+  cursor:pointer;
+}
+
+/* SIGNUP */
+.signup{
+  margin-top:10px;
+  font-size:14px;
+}
+.social-btn{
+  flex:1;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid var(--border-color);
+  background: var(--secondary-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;   /* 👈 icon + text spacing */
+}
+
+/* ICON STYLE */
+.social-btn i{
+  font-size:16px;
+}
+/* ===== LINK STYLE (Forgot + Signup) ===== */
+.options a,
+.signup a{
+  color: #3b82f6;   /* modern blue */
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: 0.3s;
+}
+
+/* UNDERLINE ANIMATION */
+.options a::after,
+.signup a::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 2px;
+  background: #3b82f6;
+  transition: 0.3s;
+}
+
+/* HOVER EFFECT */
+.options a:hover::after,
+.signup a:hover::after{
+  width: 100%;
+}
+
+.options a:hover,
+.signup a:hover{
+  color: #1d4ed8;  /* darker blue */
+}
+.options a,
+.signup a{
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.options a:hover,
+.signup a:hover{
+  background: rgba(59,130,246,0.1);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  .login-card {
+    padding: 30px 20px;
+    border-radius: 20px;
+  }
+  .login-header h1 {
+    font-size: 24px;
+  }
+  .social-login {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .social-btn {
+    width: 100%;
+  }
+  .options {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+  }
+}

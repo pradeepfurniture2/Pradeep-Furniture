@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Custom Order</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="custom-order.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      ☰
+    </div>
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+
+    </a>
+
+    <!-- LINKS -->
+    <nav>
+      <ul class="nav-links">
+
+        <li><a href="index.html">Home</a></li>
+
+        <!-- DROPDOWN (GLOBAL FURNITURE) -->
+        <li class="dropdown">
+          <a href="#">Furniture Categories</a>
+
+          <ul class="menu level-1">
+            <!-- Sector 1: Home Furniture -->
+            <li>
+              <a href="#">Home Furniture</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Living Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Sofas & Seating</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Luxury Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sectional Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sofa cum Beds</a></li>
+                        <li><a href="category.html?type=sofas">Recliners</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Tables & TV Units</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Coffee Tables</a></li>
+                        <li><a href="category.html?type=sofas">TV Media Units</a></li>
+                        <li><a href="category.html?type=sofas">Center Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bedroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Beds</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=beds">King Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Queen Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Single & Bunk Beds</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=storage">Wardrobes</a></li>
+                        <li><a href="category.html?type=storage">Almiraahs</a></li>
+                        <li><a href="category.html?type=storage">Dressing Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Dining Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Dining Sets</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=dining">4-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">6-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">8-Seater Sets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bathroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Vanities & Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=bathroom">Wall Vanities</a></li>
+                        <li><a href="category.html?type=bathroom">Mirror Cabinets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 2: Office & Reception -->
+            <li>
+              <a href="#">Office & Reception</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Office Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=office">Executive Desks</a></li>
+                    <li><a href="category.html?type=office">Ergonomic Chairs</a></li>
+                    <li><a href="category.html?type=office">Workstations</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Reception Area</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=reception">Reception Desks</a></li>
+                    <li><a href="category.html?type=reception">Waiting Chairs</a></li>
+                    <li><a href="category.html?type=reception">Lounge Seating</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 3: Institutional -->
+            <li>
+              <a href="#">Institutional</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">School Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=school">Student Desks</a></li>
+                    <li><a href="category.html?type=school">Classroom Benches</a></li>
+                    <li><a href="category.html?type=school">Study Tables</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">College/University</a>
+                  <ul class="menu level-2">
+                    <li><a href="category.html?type=school">Auditorium Chairs</a></li>
+                    <li><a href="category.html?type=school">Lab Tables</a></li>
+                    <li><a href="category.html?type=school">Seminar Desks</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 4: Outdoor -->
+            <li>
+              <a href="#">Outdoor</a>
+              <ul class="menu level-2">
+                <li><a href="category.html?type=outdoor">Garden Benches</a></li>
+                <li><a href="category.html?type=outdoor">Outdoor Swings</a></li>
+                <li><a href="category.html?type=outdoor">Patio Sets</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+
+        <li><a href="custom-order.html" class="active" target="_blank">Custom Order</a></li>
+        <li><a href="track.html">Track Order</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+      <div class="nav-icon">
+        <a href="wishlist.html">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <span id="wishlist-count">0</span>
+      </div>
+
+      <div class="nav-icon cart-icon">
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <span id="cart-count">0</span>
+      </div>
+
+      <a href="login.html">
+        <button class="auth-btn">
+          Login <span>/</span> Signup
+        </button>
+      </a>
+      <span id="user-name" style="margin-left:10px;"></span>
+
+      <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Mode">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+    </div>
+  </header>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Tell Us Your Requirements</h1>
+    <p>Get a free quote & design consultation with 100% satisfaction guarantee.</p>
+  </div>
+
+  <div class="card">
+
+    <!-- CUSTOMER -->
+    <div class="section-title">Customer Details</div>
+
+    <div class="grid">
+      <input class="input name-only" id="cust-name" placeholder="Full Name">
+      <input class="input" id="cust-mobile" type="tel" placeholder="Mobile Number">
+      <input type="email" id="cust-email" class="input" placeholder="Email Address">
+      <span id="emailError" style="color:red; font-size:12px; display:none;">
+        Please enter a valid email (example@gmail.com)
+      </span>
+      <input class="input" id="cust-city" placeholder="City / Location">
+      <input class="input full" id="cust-address" placeholder="Full Address">
+    </div>
+
+    <!-- FURNITURE -->
+    <div class="section-title">Furniture Details</div>
+
+    <div class="grid">
+      <select class="input" id="furnitureSelect">
+        <option disabled selected>Select Furniture Type</option>
+
+        <optgroup label="Bedroom">
+          <option>Bed</option>
+          <option>Wardrobe</option>
+          <option>Dressing Table</option>
+          <option>Bedside Table</option>
+        </optgroup>
+
+        <optgroup label="Living Room">
+          <option>Sofa</option>
+          <option>Sectional Sofa</option>
+          <option>Coffee Table</option>
+          <option>TV Unit</option>
+          <option>Bookshelf</option>
+        </optgroup>
+
+        <optgroup label="Dining">
+          <option>Dining Table</option>
+          <option>Dining Chair</option>
+          <option>Bar Unit</option>
+        </optgroup>
+
+        <optgroup label="Office">
+          <option>Office Table</option>
+          <option>Office Chair</option>
+          <option>Workstation</option>
+        </optgroup>
+
+        <optgroup label="Others">
+          <option>Shoe Rack</option>
+          <option>Cabinet</option>
+          <option>Storage Unit</option>
+          <option value="custom">Custom Furniture</option>
+        </optgroup>
+      </select>
+
+      <input type="text" id="customBox" class="input full" placeholder="Enter Custom Furniture" style="display:none;">
+
+      <div class="size">
+        <input class="input" id="dim-length" type="number" placeholder="Length">
+        <input class="input" id="dim-width" type="number" placeholder="Width">
+        <input class="input" id="dim-height" type="number" placeholder="Height">
+
+        <div class="unit-dropdown">
+          <div class="unit-selected" id="unitSelected">Select Size Unit</div>
+          <div class="unit-options" id="unitOptions">
+            <div>Millimeter (mm)</div>
+            <div>Centimeter (cm)</div>
+            <div>Inches (in)</div>
+            <div>Feet (ft)</div>
+            <div>Meter (m)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MATERIAL -->
+    <div style="margin-top:10px;">Material Preference</div>
+
+    <div class="material" id="materialGroup">
+      <button type="button">Sheesham Wood</button>
+      <button type="button">Teak Wood</button>
+      <button type="button">Mango Wood</button>
+      <button type="button">MDF</button>
+      <button type="button" id="otherBtn">Other</button>
+    </div>
+
+    <input type="text" id="otherInput" class="input full" placeholder="Enter Material" style="display:none;">
+
+    <!-- CUSTOM -->
+    <div class="section-title">Customization Options</div>
+
+    <div class="custom-row">
+      <div class="custom-left" id="customSection">
+        <input class="input" id="cust-color" placeholder="Color / Finish">
+        <input class="input" id="cust-style" placeholder="Design Style">
+      </div>
+
+      <div class="toggle" id="polishToggle">
+        <div class="toggle-btn active" data-value="yes">Yes</div>
+        <div class="toggle-btn" data-value="no">No</div>
+      </div>
+    </div>
+
+    <textarea id="cust-details" placeholder="Provide details..."></textarea>
+
+    <!-- UPLOAD -->
+    <div class="upload-box" id="uploadBox">
+      <input type="file" id="fileInput" hidden>
+      <p id="uploadText">Drag & Drop or <span>Click Here</span> to Upload</p>
+    </div>
+
+    <!-- COUPON -->
+    <div class="coupon-box">
+      <input type="text" id="couponInput" class="input" placeholder="Enter Coupon Code">
+      <button type="button" id="applyCoupon">Apply</button>
+      <p id="couponMsg"></p>
+    </div>
+
+    <button class="btn" id="submitBtn">Submit Custom Request →</button>
+
+    <!-- 🏷️ ORDER ID SUCCESS CARD -->
+    <div id="order-success-box" class="order-success-box" style="display: none;">
+      <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+      <h3>Request Submitted!</h3>
+      <p>Your unique Order ID is:</p>
+      <div class="order-id-wrapper">
+        <span id="display-order-id">#A1B2C3D4</span>
+        <button onclick="window.copyOrderId()" class="copy-btn" id="copyBtn">
+          <i class="fa-solid fa-copy"></i> Copy
+        </button>
+      </div>
+      <p class="redirect-notice">Please save this ID for tracking your order status.</p>
+      <a href="index.html" class="home-link">Return to Home</a>
+    </div>
+
+  </div>
+</div>
+<script src="toast.js"></script>
+<link rel="stylesheet" href="toast.css">
+<script type="module" src="custom-order.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* ===== UNIT DROPDOWN ===== */
+  const unitSelected = document.getElementById("unitSelected");
+  const unitOptions = document.getElementById("unitOptions");
+
+  unitSelected.onclick = () => {
+    unitOptions.style.display = unitOptions.style.display === "block" ? "none" : "block";
+  };
+
+  unitOptions.querySelectorAll("div").forEach(opt => {
+    opt.onclick = () => {
+      unitSelected.innerText = opt.innerText;
+      unitOptions.style.display = "none";
+    };
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".unit-dropdown")) {
+      unitOptions.style.display = "none";
+    }
+  });
+
+  /* ===== CUSTOM FURNITURE ===== */
+  const furnitureSelect = document.getElementById("furnitureSelect");
+  const customBox = document.getElementById("customBox");
+
+  furnitureSelect.addEventListener("change", () => {
+    customBox.style.display = furnitureSelect.value === "custom" ? "block" : "none";
+  });
+
+  /* ===== MATERIAL ===== */
+  const materialBtns = document.querySelectorAll(".material button");
+  const otherBtn = document.getElementById("otherBtn");
+  const otherInput = document.getElementById("otherInput");
+
+  materialBtns.forEach(btn => {
+    btn.onclick = () => {
+      materialBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      otherInput.style.display = btn === otherBtn ? "block" : "none";
+    };
+  });
+
+  /* ===== TOGGLE ===== */
+  const toggleBtns = document.querySelectorAll(".toggle-btn");
+  const section = document.getElementById("customSection");
+
+  toggleBtns.forEach(btn => {
+    btn.onclick = () => {
+      toggleBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      section.classList.toggle("disabled", btn.dataset.value === "no");
+    };
+  });
+
+  /* ===== NAME VALIDATION ===== */
+  document.querySelectorAll(".name-only").forEach(input => {
+    input.oninput = () => {
+      input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
+    };
+  });
+
+  /* ===== EMAIL VALIDATION ===== */
+  const emailInput = document.getElementById("cust-email");
+  const emailError = document.getElementById("emailError");
+
+  if (emailInput) {
+    emailInput.oninput = () => {
+      const pattern = /^[^\s@]+@[^\s@]+\.(com)$/;
+      emailError.style.display = pattern.test(emailInput.value) ? "none" : "block";
+    };
+  }
+
+  /* ===== FILE UPLOAD ===== */
+  const uploadBox = document.getElementById("uploadBox");
+  const fileInput = document.getElementById("fileInput");
+  const uploadText = document.getElementById("uploadText");
+
+  uploadBox.onclick = () => fileInput.click();
+
+  fileInput.onchange = () => {
+    const file = fileInput.files[0];
+    if (file) uploadText.innerText = "Uploaded: " + file.name;
+  };
+
+  uploadBox.ondragover = (e) => {
+    e.preventDefault();
+    uploadBox.classList.add("drag");
+  };
+
+  uploadBox.ondragleave = () => uploadBox.classList.remove("drag");
+
+  uploadBox.ondrop = (e) => {
+    e.preventDefault();
+    uploadBox.classList.remove("drag");
+    const file = e.dataTransfer.files[0];
+    if (file) {
+        uploadText.innerText = "Uploaded: " + file.name;
+        fileInput.files = e.dataTransfer.files; // Assign to input so JS can read it
+    }
+  };
+
+  /* ===== COUPON ===== */
+  const applyBtn = document.getElementById("applyCoupon");
+  const couponInput = document.getElementById("couponInput");
+  const couponMsg = document.getElementById("couponMsg");
+
+  applyBtn.onclick = () => {
+    const code = couponInput.value.trim().toUpperCase();
+
+    if (code === "PF20") {
+      couponMsg.innerText = "✅ Coupon Applied! 20% Discount";
+      couponMsg.style.color = "green";
+      localStorage.setItem("discount", "20");
+    } else {
+      couponMsg.innerText = "❌ Invalid Coupon Code";
+      couponMsg.style.color = "red";
+    }
+  };
+
+  /* ===== AUTO COUPON ===== */
+  const params = new URLSearchParams(window.location.search);
+  const coupon = params.get("coupon");
+
+  if (coupon === "PF20") {
+    couponInput.value = coupon;
+    couponMsg.innerText = "🎉 Coupon Applied Automatically (20% OFF)";
+    couponMsg.style.color = "green";
+    localStorage.setItem("discount", "20");
+  }
+
+  /* Submission handled by custom-order.js module */
+})
+</script>
+<script src="theme.js"></script>
+</body>
+</html>

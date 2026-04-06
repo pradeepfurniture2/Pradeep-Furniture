@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Select Shipping | Elite Furniture</title>
+
+  <link rel="stylesheet" href="shipping.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+    </a>
+    <div class="nav-right">
+      <span id="user-name"></span>
+      <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-moon"></i></button>
+    </div>
+  </header>
+
+  <div class="shipping-page">
+
+    <!-- 🚀 PROGRESS STEPPER -->
+    <div class="checkout-stepper">
+      <div class="step completed">
+        <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+        <span>Information</span>
+      </div>
+      <div class="step-line active"></div>
+      <div class="step active">
+        <div class="step-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <span>Shipping</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-icon"><i class="fa-solid fa-credit-card"></i></div>
+        <span>Payment</span>
+      </div>
+    </div>
+
+    <div class="shipping-container">
+
+      <!-- LEFT: OPTIONS -->
+      <div class="shipping-left">
+        <div class="address-preview glass-card">
+          <h3><i class="fa-solid fa-location-dot"></i> Delivery Address</h3>
+          <div id="addr-info">
+            <p id="dispName" style="font-weight:700;">...</p>
+            <p id="dispFullAddr">...</p>
+            <p id="dispCity">...</p>
+          </div>
+          <button class="edit-btn" onclick="history.back()">Edit Address</button>
+        </div>
+
+        <div class="shipping-methods">
+          <h3>Select Delivery Method</h3>
+
+          <div class="method-card glass-card active" onclick="selectMethod('standard', 0)">
+            <div class="method-icon"><i class="fa-solid fa-truck"></i></div>
+            <div class="method-info">
+              <p class="method-name">Standard Delivery</p>
+              <p class="method-desc">Delivered in 5-7 business days. Based on distance calculation.</p>
+            </div>
+            <div class="method-price" id="stdPrice">₹0</div>
+            <div class="check-mark"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+
+          <div class="method-card glass-card" onclick="selectMethod('express', 500)">
+            <div class="method-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="method-info">
+              <p class="method-name">Elite Express Delivery</p>
+              <p class="method-desc">Delivered in 2-3 business days. Priority handling.</p>
+            </div>
+            <div class="method-price" id="expPrice">+ ₹500</div>
+            <div class="check-mark"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: SUMMARY -->
+      <div class="shipping-right">
+        <div class="summary glass-card premium-receipt">
+          <h3>Order Summary</h3>
+          <div class="receipt-item">
+            <span>Subtotal</span>
+            <span id="subtotal">₹0</span>
+          </div>
+          <div class="receipt-item">
+             <span>Shipping (<span id="methodLabel">Standard</span>)</span>
+             <span id="shipTotal">₹0</span>
+          </div>
+          <div class="receipt-item">
+            <span>GST (18%)</span>
+            <span id="gstTotal">₹0</span>
+          </div>
+          <div class="receipt-item">
+            <span>CGST (9%)</span>
+            <span id="cgstTotal">₹0</span>
+          </div>
+          <div class="receipt-item">
+            <span>SGST (9%)</span>
+            <span id="sgstTotal">₹0</span>
+          </div>
+          <div class="receipt-divider"></div>
+          <div class="receipt-total">
+            <span>Grand Total</span>
+             <span class="total-value" id="finalTotal">₹0</span>
+          </div>
+
+          <button class="continue-btn elite-btn" onclick="proceedToPayment()">
+            Continue to Payment <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { db } from "./firebase.js";
+    import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get('orderId');
+
+    let baseShipping = 0;
+    let extraCharge = 0;
+    let currentTotal = 0;
+
+    if (!orderId) {
+        window.location.href = "index.html";
+    }
+
+    /* ================= LOAD ORDER ================= */
+    async function loadOrder() {
+        try {
+            const docRef = doc(db, "custom_orders", orderId);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                baseShipping = data.summary.shipping || 0;
+                
+                document.getElementById("dispName").innerText = data.customer.name;
+                document.getElementById("dispFullAddr").innerText = data.customer.address;
+                document.getElementById("dispCity").innerText = `${data.customer.city}, ${data.customer.state} - ${data.customer.pincode}`;
+                
+                document.getElementById("subtotal").innerText = "₹" + data.summary.subtotal.toLocaleString();
+                document.getElementById("stdPrice").innerText = baseShipping === 0 ? "FREE" : "₹" + baseShipping;
+                
+                updateTotal();
+            }
+        } catch (error) {
+            console.error("Error loading order:", error);
+        }
+    }
+
+    window.selectMethod = function(method, extra) {
+        extraCharge = extra;
+        document.querySelectorAll('.method-card').forEach(c => c.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        document.getElementById("methodLabel").innerText = method.charAt(0).toUpperCase() + method.slice(1);
+        updateTotal();
+    };
+
+    function updateTotal() {
+        const sub = parseInt(document.getElementById("subtotal").innerText.replace("₹", "").replace(",", ""));
+        const ship = baseShipping + extraCharge;
+        const gst = Math.round(sub * 0.18);
+        const cgst = Math.round(sub * 0.09);
+        const sgst = Math.round(sub * 0.09);
+        const total = sub + ship + gst;
+
+        document.getElementById("shipTotal").innerText = ship === 0 ? "FREE" : "₹" + ship.toLocaleString();
+        document.getElementById("gstTotal").innerText = "₹" + gst.toLocaleString();
+        document.getElementById("cgstTotal").innerText = "₹" + cgst.toLocaleString();
+        document.getElementById("sgstTotal").innerText = "₹" + sgst.toLocaleString();
+        document.getElementById("finalTotal").innerText = "₹" + total.toLocaleString();
+        currentTotal = total;
+    }
+
+    window.proceedToPayment = async function() {
+        const btn = document.querySelector(".continue-btn");
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
+        btn.disabled = true;
+
+        try {
+            const shipValue = baseShipping + extraCharge;
+            const docRef = doc(db, "custom_orders", orderId);
+            await updateDoc(docRef, {
+                "summary.shipping": shipValue,
+                "summary.total": currentTotal,
+                "shippingType": document.getElementById("methodLabel").innerText,
+                updatedAt: new Date().toISOString()
+            });
+
+            window.location.href = `payment.html?orderId=${orderId}`;
+        } catch (err) {
+            console.error("Failed to update shipping:", err);
+            btn.innerHTML = `Continue to Payment <i class="fa-solid fa-chevron-right"></i>`;
+            btn.disabled = false;
+        }
+    };
+
+    loadOrder();
+  </script>
+
+  <script src="theme.js"></script>
+</body>
+</html>

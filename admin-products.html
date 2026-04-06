@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products | Admin | Pradeep Furniture</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="toast.css">
+    <script src="toast.js"></script>
+    <style>
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+            background: var(--bg-color);
+        }
+
+        .admin-sidebar {
+            width: 260px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-brand {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+
+        .sidebar-brand img { width: 45px; }
+
+        .admin-sidebar .nav-item {
+            padding: 10px 18px;
+            margin: 0 15px 5px 15px;
+            border-radius: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .admin-sidebar .nav-item:hover,
+        .admin-sidebar .nav-item.active {
+            background: var(--accent-light);
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .admin-main {
+            margin-left: 260px;
+            flex: 1;
+            padding: 40px;
+        }
+
+        /* Product Center Styles */
+        .product-action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--card-shadow);
+        }
+
+        .add-product-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .add-product-btn:hover { background: #a67c52; transform: translateY(-2px); }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 550px;
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-primary);
+        }
+
+        .image-preview-box {
+            width: 100%;
+            height: 200px;
+            background: var(--bg-color);
+            border: 2px dashed var(--border-color);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .image-preview-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .upload-overlay {
+            position: absolute;
+            background: rgba(0,0,0,0.4);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn-row { display: flex; gap: 15px; margin-top: 25px; }
+        .btn-save { flex: 1; background: var(--accent-color); color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+        .btn-cancel { flex: 1; background: var(--hover-bg); border: 1px solid var(--border-color); padding: 14px; border-radius: 12px; cursor: pointer; color: var(--text-primary); }
+
+        .product-card-admin {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+        .product-card-admin:hover { transform: translateY(-5px); box-shadow: var(--card-shadow); }
+        .admin-card-img { height: 180px; width: 100%; object-fit: cover; }
+        .admin-card-body { padding: 20px; }
+        .admin-card-body h4 { font-size: 18px; margin-bottom: 5px; }
+        .admin-card-body .price { color: var(--accent-color); font-weight: 700; margin-bottom: 15px; }
+        .admin-card-footer { display: flex; gap: 10px; border-top: 1px solid var(--border-color); padding: 15px 20px; }
+        .action-btn { flex: 1; padding: 8px; border-radius: 8px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .edit-btn { background: var(--accent-light); color: var(--accent-color); }
+        .delete-btn { background: #ffebee; color: #d32f2f; }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 991px) {
+            .admin-sidebar {
+                left: -260px;
+                transition: all 0.4s ease;
+            }
+            .admin-sidebar.active {
+                left: 0;
+            }
+            .admin-main {
+                margin-left: 0 !important;
+                padding: 100px 15px 40px !important;
+            }
+            .navbar {
+                left: 0 !important;
+                width: 100% !important;
+            }
+            .menu-toggle-admin {
+                display: block !important;
+                font-size: 20px;
+                cursor: pointer;
+                color: var(--text-primary);
+                margin-right: 15px;
+            }
+            .product-action-bar {
+                flex-direction: column;
+                gap: 20px;
+                align-items: stretch;
+            }
+            .search-wrapper {
+                min-width: 100% !important;
+            }
+        }
+        .menu-toggle-admin {
+            display: none;
+        }
+    </style>
+    <script>
+        window.toggleAdminSidebar = function() {
+            const sidebar = document.querySelector(".admin-sidebar");
+            sidebar.classList.toggle("active");
+        };
+    </script>
+</head>
+<body class="admin-page">
+
+    <header class="navbar" style="left: 260px; width: calc(100% - 260px); height: 70px; display: flex; align-items: center; padding: 0 20px;">
+      <div class="menu-toggle-admin" onclick="toggleAdminSidebar()">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <nav><ul class="nav-links"><li><a href="index.html">Back to Site</a></li></ul></nav>
+      <div class="nav-right">
+        <span id="admin-name" style="font-weight:600; color:var(--accent-color);"></span>
+        <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar" style="position:fixed; top:0; left:0;">
+            <div class="sidebar-brand">
+              <a href="index.html" class="logo"><img src="images/logo.png" alt="logo"></a>
+            </div>
+            <a href="admin-dashboard.html" class="nav-item">
+                <i class="fa-solid fa-chart-pie"></i> <span class="nav-text">Overview</span>
+            </a>
+            <a href="admin-orders.html" class="nav-item">
+                <i class="fa-solid fa-boxes-packing"></i> <span class="nav-text">All Orders</span>
+            </a>
+            <a href="admin-products.html" class="nav-item active">
+                <i class="fa-solid fa-couch"></i> <span class="nav-text">Manage Products</span>
+            </a>
+            <a href="admin-coupons.html" class="nav-item">
+                <i class="fa-solid fa-ticket"></i> <span class="nav-text">Manage Coupons</span>
+            </a>
+            <a href="admin-dashboard.html?tab=users" class="nav-item">
+                <i class="fa-solid fa-users"></i> <span class="nav-text">Users</span>
+            </a>
+            <a href="admin-dashboard.html?tab=analytics" class="nav-item">
+                <i class="fa-solid fa-chart-line"></i> <span class="nav-text">Analytics</span>
+            </a>
+            <a href="admin-dashboard.html?tab=reviews" class="nav-item">
+                <i class="fa-solid fa-comments"></i> <span class="nav-text">Recent Reviews</span>
+            </a>
+            <div style="flex-grow: 1;"></div>
+            <a href="#" class="nav-item" onclick="window.logout()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> <span class="nav-text">Logout</span>
+            </a>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <div>
+                    <h1 class="welcome-text" style="font-family:'Playfair Display'; font-size:36px; margin:0;">Product Inventory</h1>
+                    <p style="color: var(--text-muted);">Dynamically control the furniture cards displayed on your home page.</p>
+                </div>
+            </header>
+
+            <div class="product-action-bar">
+                <div style="display:flex; gap:15px; align-items:center;">
+                    <button class="add-product-btn" id="openAddModal">
+                        <i class="fa-solid fa-plus"></i> Add New Product
+                    </button>
+                    <button class="action-btn edit-btn" style="padding:12px 20px; border-radius:12px;" id="migrateBtn">
+                        <i class="fa-solid fa-database"></i> Import from local JS
+                    </button>
+                </div>
+                <div class="search-wrapper" style="min-width:300px; position:relative;">
+                    <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--text-muted);"></i>
+                    <input type="text" id="productSearch" placeholder="Search products..." style="width:100%; padding:12px 40px; border-radius:12px; border:1px solid var(--border-color); background:var(--card-bg); color:var(--text-primary);">
+                </div>
+            </div>
+
+            <div id="admin-products-list" class="products-grid">
+                <!-- Dynamic Content -->
+            </div>
+        </main>
+    </div>
+
+    <!-- ADD/EDIT MODAL -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Product</h2>
+                <i class="fa-solid fa-xmark" id="closeModal" style="cursor:pointer; font-size:20px;"></i>
+            </div>
+            
+            <form id="productForm">
+                <input type="hidden" id="editProductId">
+                
+                <div class="image-preview-box" id="imageContainer">
+                    <img id="imagePreview" src="images/logo.png" style="display:none;">
+                    <div id="uploadPlaceholder">
+                        <i class="fa-solid fa-image" style="font-size:40px; display:block; text-align:center; margin-bottom:10px; color:var(--text-muted);"></i>
+                        <span style="font-size:13px; color:var(--text-muted);">Drop image here or click to upload</span>
+                    </div>
+                    <div class="upload-overlay" id="uploadOverlay" style="display:none;">Change Image</div>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" style="display:none;">
+
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="prod-name" placeholder="e.g. Modern Leather Sofa" required>
+                </div>
+                
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                    <div class="form-group">
+                        <label>Price (₹)</label>
+                        <input type="number" id="prod-price" placeholder="40000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="prod-category">
+                            <option value="sofa">Sofa</option>
+                            <option value="bed">Bed</option>
+                            <option value="dining">Dining</option>
+                            <option value="wardrobe">Wardrobe</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; align-items:center; margin-top:10px;">
+                    <div style="display:flex; align-items:center; gap:10px; background:var(--accent-light); padding:10px; border-radius:10px; border:1px solid var(--accent-light);">
+                        <input type="checkbox" id="prod-partner-only" style="width:20px; height:20px; cursor:pointer;">
+                        <label for="prod-partner-only" style="margin:0; cursor:pointer; color:var(--accent-color); font-size:13px;">Partner Exclusive</label>
+                    </div>
+                </div>
+
+                <div class="btn-row">
+                    <button type="button" class="btn-cancel" id="cancelForm">Cancel</button>
+                    <button type="submit" class="btn-save" id="saveProductBtn">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="admin-products.js"></script>
+    <script src="theme.js"></script>
+</body>
+</html>

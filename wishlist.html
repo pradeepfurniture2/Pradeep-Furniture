@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="wishlist.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      ☰
+    </div>
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+
+    </a>
+
+    <!-- LINKS -->
+    <nav>
+      <ul class="nav-links">
+
+        <li><a href="index.html">Home</a></li>
+
+        <!-- DROPDOWN (GLOBAL FURNITURE) -->
+        <li class="dropdown">
+          <a href="#">Furniture Categories</a>
+
+          <ul class="menu level-1">
+            <!-- Sector 1: Home Furniture -->
+            <li>
+              <a href="#">Home Furniture</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Living Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Sofas & Seating</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Luxury Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sectional Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sofa cum Beds</a></li>
+                        <li><a href="category.html?type=sofas">Recliners</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Tables & TV Units</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Coffee Tables</a></li>
+                        <li><a href="category.html?type=sofas">TV Media Units</a></li>
+                        <li><a href="category.html?type=sofas">Center Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bedroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Beds</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=beds">King Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Queen Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Single & Bunk Beds</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=storage">Wardrobes</a></li>
+                        <li><a href="category.html?type=storage">Almiraahs</a></li>
+                        <li><a href="category.html?type=storage">Dressing Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Dining Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Dining Sets</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=dining">4-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">6-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">8-Seater Sets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bathroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Vanities & Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=bathroom">Wall Vanities</a></li>
+                        <li><a href="category.html?type=bathroom">Mirror Cabinets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 2: Office & Reception -->
+            <li>
+              <a href="#">Office & Reception</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Office Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=office">Executive Desks</a></li>
+                    <li><a href="category.html?type=office">Ergonomic Chairs</a></li>
+                    <li><a href="category.html?type=office">Workstations</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Reception Area</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=reception">Reception Desks</a></li>
+                    <li><a href="category.html?type=reception">Waiting Chairs</a></li>
+                    <li><a href="category.html?type=reception">Lounge Seating</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 3: Institutional -->
+            <li>
+              <a href="#">Institutional</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">School Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=school">Student Desks</a></li>
+                    <li><a href="category.html?type=school">Classroom Benches</a></li>
+                    <li><a href="category.html?type=school">Study Tables</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">College/University</a>
+                  <ul class="menu level-2">
+                    <li><a href="category.html?type=school">Auditorium Chairs</a></li>
+                    <li><a href="category.html?type=school">Lab Tables</a></li>
+                    <li><a href="category.html?type=school">Seminar Desks</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 4: Outdoor -->
+            <li>
+              <a href="#">Outdoor</a>
+              <ul class="menu level-2">
+                <li><a href="category.html?type=outdoor">Garden Benches</a></li>
+                <li><a href="category.html?type=outdoor">Outdoor Swings</a></li>
+                <li><a href="category.html?type=outdoor">Patio Sets</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+
+        <li><a href="custom-order.html" target="_blank">Custom Order</a></li>
+        <li><a href="track.html">Track Order</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+      <div class="nav-icon">
+        <a href="wishlist.html" class="active">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <span id="wishlist-count">0</span>
+      </div>
+
+      <div class="nav-icon cart-icon">
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <span id="cart-count">0</span>
+      </div>
+
+      <a href="login.html">
+        <button class="auth-btn">
+          Login <span>/</span> Signup
+        </button>
+      </a>
+      <span id="user-name" style="margin-left:10px;"></span>
+
+      <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Mode">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+    </div>
+  </header>
+
+    <section class="wishlist-page">
+      <div class="wishlist-header featured-header">
+        <h2 class="tilt-text">My Wishlist</h2>
+        <p>Your curated collection of premium furniture pieces.</p>
+      </div>
+
+      <div id="wishlist-container" class="products"></div>
+    </section>
+
+    <script type="module">
+      import { auth, db } from "./firebase.js";
+      import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      window.renderWishlist = function() {
+        let container = document.getElementById("wishlist-container");
+        if (!container) return;
+        container.innerHTML = "";
+
+        if (wishlist.length === 0) {
+          container.innerHTML = `
+            <div class="empty-wishlist">
+              <i class="fa-regular fa-heart empty-icon"></i>
+              <h3>Your Wishlist is Empty</h3>
+              <p>Looks like you haven't added any premium furniture to your wishlist yet.</p>
+              <a href="index.html#tiltSection" class="continue-shopping">Explore Collections</a>
+            </div>
+          `;
+          container.classList.add("empty-wrap");
+          return;
+        }
+
+        container.classList.remove("empty-wrap");
+
+        wishlist.forEach((item, i) => {
+          container.innerHTML += `
+            <div class="product-card">
+              <div class="wishlist-remove" onclick="removeItem(${i})" title="Remove from Wishlist">
+                <i class="fa-solid fa-xmark"></i>
+              </div>
+              <div class="card-img">
+                <img src="${item.image}" alt="${item.name}">
+              </div>
+              <div class="card-content">
+                <div class="card-header-info">
+                  <span class="product-id">Top Pick</span>
+                  <div class="rating">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                  </div>
+                </div>
+                <h3>${item.name}</h3>
+                <p class="price">₹${item.price.toLocaleString('en-IN')}</p>
+                <div class="card-buttons">
+                  <button class="add" onclick="addToCart(${i}, this)">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      window.syncWishlistToAccount = async function() {
+        const user = auth.currentUser;
+        if (user) {
+          try {
+            const docRef = doc(db, "users", user.uid);
+            await updateDoc(docRef, { wishlist: wishlist });
+          } catch (e) { console.error("Wishlist Sync Error:", e); }
+        }
+      }
+
+      window.removeItem = async function(i) {
+        wishlist.splice(i, 1);
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        await window.syncWishlistToAccount();
+        window.dispatchEvent(new Event("wishlistUpdated"));
+        if (window.updateWishlistCount) window.updateWishlistCount();
+        window.renderWishlist();
+      }
+
+      window.addToCart = function(i, btn) {
+        let item = wishlist[i];
+        let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+        let existing = cartItems.find(p => p.name === item.name);
+
+        if (existing) {
+          existing.qty++;
+        } else {
+          cartItems.push({ ...item, qty: 1 });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cartItems));
+        window.dispatchEvent(new Event("cartUpdated"));
+
+        if (btn) {
+          let originalText = btn.innerText;
+          btn.innerText = "Added ✓";
+          btn.style.background = "#28a745";
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = "";
+          }, 1500);
+        }
+      }
+
+      // Initial render & sync detection
+      window.renderWishlist();
+      window.addEventListener("wishlistUpdated", () => {
+        wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+        window.renderWishlist();
+      });
+    </script>
+    <script src="theme.js"></script>
+
+    <!-- 📞 SUPPORT WIDGET -->
+    <div class="support-widget">
+      <div class="support-options">
+        <a href="https://wa.me/+918445553853" target="_blank" class="support-btn whatsapp" title="WhatsApp"><i
+            class="fa-brands fa-whatsapp"></i></a>
+        <a href="tel:+918445553853" class="support-btn phone" title="Call Us"><i class="fa-solid fa-phone"></i></a>
+        <a href="mailto:support@pradeepfurniture.com" class="support-btn email" title="Email Us"><i
+            class="fa-solid fa-envelope"></i></a>
+      </div>
+      <div class="support-toggle" onclick="toggleSupport()">
+        <i class="fa-solid fa-headset"></i>
+      </div>
+    </div>
+
+    <script>
+      function toggleSupport() {
+        document.querySelector('.support-options').classList.toggle('active');
+      }
+    </script>
+
+    <script src="theme.js"></script>
+  </body>
+
+</html>

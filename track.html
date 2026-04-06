@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Track Order</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="track.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="toast.css">
+  <script src="toast.js"></script>
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      ☰
+    </div>
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+
+    </a>
+
+    <!-- LINKS -->
+    <nav>
+      <ul class="nav-links">
+
+        <li><a href="index.html">Home</a></li>
+
+        <!-- DROPDOWN (GLOBAL FURNITURE) -->
+        <li class="dropdown">
+          <a href="#">Furniture Categories</a>
+
+          <ul class="menu level-1">
+            <!-- Sector 1: Home Furniture -->
+            <li>
+              <a href="#">Home Furniture</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Living Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Sofas & Seating</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Luxury Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sectional Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sofa cum Beds</a></li>
+                        <li><a href="category.html?type=sofas">Recliners</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Tables & TV Units</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Coffee Tables</a></li>
+                        <li><a href="category.html?type=sofas">TV Media Units</a></li>
+                        <li><a href="category.html?type=sofas">Center Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bedroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Beds</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=beds">King Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Queen Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Single & Bunk Beds</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=storage">Wardrobes</a></li>
+                        <li><a href="category.html?type=storage">Almiraahs</a></li>
+                        <li><a href="category.html?type=storage">Dressing Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Dining Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Dining Sets</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=dining">4-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">6-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">8-Seater Sets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bathroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Vanities & Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=bathroom">Wall Vanities</a></li>
+                        <li><a href="category.html?type=bathroom">Mirror Cabinets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 2: Office & Reception -->
+            <li>
+              <a href="#">Office & Reception</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Office Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=office">Executive Desks</a></li>
+                    <li><a href="category.html?type=office">Ergonomic Chairs</a></li>
+                    <li><a href="category.html?type=office">Workstations</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Reception Area</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=reception">Reception Desks</a></li>
+                    <li><a href="category.html?type=reception">Waiting Chairs</a></li>
+                    <li><a href="category.html?type=reception">Lounge Seating</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 3: Institutional -->
+            <li>
+              <a href="#">Institutional</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">School Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=school">Student Desks</a></li>
+                    <li><a href="category.html?type=school">Classroom Benches</a></li>
+                    <li><a href="category.html?type=school">Study Tables</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">College/University</a>
+                  <ul class="menu level-2">
+                    <li><a href="category.html?type=school">Auditorium Chairs</a></li>
+                    <li><a href="category.html?type=school">Lab Tables</a></li>
+                    <li><a href="category.html?type=school">Seminar Desks</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 4: Outdoor -->
+            <li>
+              <a href="#">Outdoor</a>
+              <ul class="menu level-2">
+                <li><a href="category.html?type=outdoor">Garden Benches</a></li>
+                <li><a href="category.html?type=outdoor">Outdoor Swings</a></li>
+                <li><a href="category.html?type=outdoor">Patio Sets</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+
+        <li><a href="custom-order.html" target="_blank">Custom Order</a></li>
+        <li><a href="track.html" class="active">Track Order</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+      <div class="nav-icon">
+        <a href="wishlist.html">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <span id="wishlist-count">0</span>
+      </div>
+
+      <div class="nav-icon cart-icon">
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <span id="cart-count">0</span>
+      </div>
+
+      <a href="login.html">
+        <button class="auth-btn">
+          Login <span>/</span> Signup
+        </button>
+      </a>
+      <span id="user-name" style="margin-left:10px;"></span>
+
+      <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Mode">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+    </div>
+  </header>
+  <div class="track-wrapper">
+
+    <h1 class="title">Track Your Order</h1>
+    <p class="subtitle">
+      Enter your mobile number and order ID to track your order progress
+    </p>
+
+    <div class="track-card">
+
+      <!-- LEFT SIDE -->
+      <div class="left">
+
+        <h3>Enter your mobile number & Order ID</h3>
+
+        <div class="input-box">
+          <span>+91</span>
+          <input type="text" id="mobile" placeholder="Enter mobile number">
+        </div>
+
+        <div class="input-box">
+          <input type="text" id="orderId" placeholder="Enter order ID">
+          <i class="fa fa-search"></i>
+        </div>
+
+        <div class="captcha">
+
+          <span id="captchaText">S28H1</span>
+
+          <!-- ✅ USER INPUT -->
+          <input type="text" id="captchaInput" placeholder="Enter captcha">
+
+          <button onclick="refreshCaptcha()">Refresh</button>
+
+        </div>
+
+        <button class="track-btn" onclick="trackOrder()">
+          Track Order →
+        </button>
+
+        <!-- STATUS (HIDDEN INITIALLY) -->
+        <div class="status" id="statusBox" style="display:none; flex-direction: column; gap: 8px;">
+          <div class="step">1. Pending Review</div>
+          <div class="step">2. Confirmed</div>
+          <div class="step">3. Designing</div>
+          <div class="step">4. Material Selection</div>
+          <div class="step">5. In Production</div>
+          <div class="step">6. Finishing & QC</div>
+          <div class="step">7. Out for Delivery</div>
+          <div class="step">8. Delivered</div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="right">
+
+        <h3>Order Items / Design Preview</h3>
+
+        <div class="preview" id="previewBox" style="display:none;">
+          <img id="orderImg" src="" alt="">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <link rel="stylesheet" href="toast.css">
+  <script src="toast.js"></script>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="main.js"></script>
+  <script src="theme.js"></script>
+  <script type="module" src="track.js"></script>
+  <script>
+    function updateCartCountLive() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      let total = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
+
+      let el = document.getElementById("cart-count");
+      if (el) el.innerText = total;
+    }
+
+    /* 🔥 INITIAL */
+    updateCartCountLive();
+
+    /* 🔥 CUSTOM EVENT LISTENER */
+    window.addEventListener("cartUpdated", updateCartCountLive);
+  </script>
+</body>
+
+</html>

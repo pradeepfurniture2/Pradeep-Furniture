@@ -1,0 +1,525 @@
+/* ================= CART PAGE STYLES ================= */
+
+/* BASE */
+body {
+  background: var(--bg-color);
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
+  line-height: 1.6;
+}
+
+.cart-page {
+  padding: 80px 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* CONTAINER */
+.cart-container {
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+/* LEFT: ITEMS */
+.cart-items {
+  flex: 2;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.cart-item:hover {
+  transform: translateY(-5px);
+}
+
+.cart-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.details {
+  flex: 1;
+}
+
+.details h4 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.details p {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+/* QUANTITY CONTROL */
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--secondary-bg);
+  padding: 5px 15px;
+  border-radius: 12px;
+}
+
+.qty button {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.qty span {
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 18px;
+  min-width: 100px;
+  text-align: right;
+  color: var(--text-primary);
+}
+
+/* REMOVE BUTTON */
+.remove {
+  background: rgba(255, 77, 77, 0.1);
+  color: #ff4d4d;
+  border: 1px solid rgba(255, 77, 77, 0.2);
+  padding: 8px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.remove:hover {
+  background: #ff4d4d;
+  color: #fff;
+}
+
+/* RIGHT: SUMMARY */
+.summary {
+  flex: 1;
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 20px;
+  height: fit-content;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: background 0.3s ease;
+  position: sticky;
+  top: 100px;
+}
+
+.summary h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+  font-family: 'Playfair Display', serif;
+}
+
+.summary p {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+.summary p span {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* COUPON BOX */
+.coupon-box {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0 10px;
+}
+
+.coupon-box input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--bg-color);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  outline: none;
+}
+
+.coupon-box button {
+  padding: 10px 20px;
+  border: none;
+  background: var(--accent-color);
+  color: #fff;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* DISCOUNT */
+.summary .discount {
+  color: #2e7d32;
+}
+
+.summary .discount span {
+  color: #2e7d32;
+}
+
+/* TOTAL */
+.summary h4 {
+  display: flex;
+  justify-content: space-between;
+  font-size: 22px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+/* CHECKOUT BUTTON */
+.checkout {
+  width: 100%;
+  margin-top: 25px;
+  padding: 15px;
+  border: none;
+  border-radius: 30px;
+  background: var(--accent-color);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.checkout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(196, 155, 99, 0.3);
+}
+
+/* VIEW COUPONS LINK */
+.view-coupons {
+  font-size: 13px;
+  color: var(--accent-color) !important;
+  cursor: pointer;
+  margin-bottom: 10px;
+  display: inline-block;
+  text-decoration: underline;
+}
+
+/* SAVINGS BOX */
+#savingsBox {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* POPUP */
+.coupon-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-content {
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 24px;
+  width: 420px;
+  max-width: 95%;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  box-shadow: var(--card-shadow);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-content h3 {
+  margin-bottom: 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+}
+
+#couponList {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* CUSTOM SCROLLBAR for Coupon List */
+#couponList::-webkit-scrollbar {
+  width: 5px;
+}
+
+#couponList::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 10px;
+}
+
+#couponList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.coupon-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 12px;
+  border: 1px dashed var(--accent-color);
+  border-radius: 12px;
+  background: var(--secondary-bg);
+  transition: all 0.3s ease;
+}
+
+.coupon-item:hover {
+  border-style: solid;
+  transform: scale(1.02);
+}
+
+.coupon-item strong {
+  color: var(--accent-color);
+  font-size: 16px;
+}
+
+.coupon-item small {
+  color: var(--text-secondary);
+}
+
+.coupon-item button {
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  padding: 6px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.3s;
+}
+
+.coupon-item button:hover {
+  opacity: 0.9;
+}
+
+.close-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: var(--bg-color);
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+}
+
+.close-btn:hover {
+  background: var(--secondary-bg);
+}
+
+/* EMPTY CART CARD */
+.empty-cart-card {
+  text-align: center;
+  padding: 60px 40px;
+  background: var(--card-bg);
+  backdrop-filter: blur(15px);
+  border-radius: 30px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  max-width: 500px;
+  margin: 40px auto;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.empty-icon {
+  width: 100px;
+  height: 100px;
+  background: rgba(196, 155, 99, 0.1);
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 25px;
+  font-size: 40px;
+  border: 1px solid rgba(196, 155, 99, 0.2);
+}
+
+.empty-cart-card h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+  font-family: 'Playfair Display', serif;
+}
+
+.empty-cart-card p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.explore-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #c49b63, #a67c3b);
+  color: #fff;
+  padding: 12px 35px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(196, 155, 99, 0.3);
+}
+
+.explore-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(196, 155, 99, 0.4);
+}
+
+/* SHIPPING SELECT */
+.shipping-section {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--secondary-bg);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.shipping-section label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#shippingLocation {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23c49b63' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#shippingLocation:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px rgba(196, 155, 99, 0.1);
+}
+
+/* Responsive Overhaul */
+@media (max-width: 900px) {
+  .cart-page {
+    padding: 60px 15px 40px;
+  }
+  .cart-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .cart-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 15px;
+    padding: 20px;
+    position: relative;
+  }
+  .cart-item img {
+    grid-row: 1 / 3;
+    width: 100px;
+    height: 100px;
+  }
+  .details {
+    grid-column: 2 / 3;
+  }
+  .qty {
+    grid-column: 2 / 3;
+    width: fit-content;
+    margin-top: 5px;
+  }
+  .price {
+    grid-column: 1 / 3;
+    text-align: right;
+    font-size: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+    margin-top: 5px;
+    min-width: unset;
+  }
+  .remove {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+  .summary {
+    position: static;
+    padding: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-item img {
+    height: 160px;
+  }
+  .summary h3 {
+    font-size: 20px;
+  }
+  .summary h4 {
+    font-size: 18px;
+  }
+  .coupon-box {
+    flex-direction: column;
+  }
+  .coupon-box button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="signup.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="toast.css">
+  <script src="toast.js"></script>
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <!-- EmailJS Library -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <!-- OTP Verification Logic -->
+  <script src="otp.js"></script>
+</head>
+
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      ☰
+    </div>
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+    </a>
+
+    <!-- LINKS -->
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+
+        <!-- DROPDOWN (GLOBAL FURNITURE) -->
+        <li class="dropdown">
+          <a href="#">Furniture Categories</a>
+
+          <ul class="menu level-1">
+            <!-- Sector 1: Home Furniture -->
+            <li>
+              <a href="#">Home Furniture</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Living Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Sofas & Seating</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Luxury Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sectional Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sofa cum Beds</a></li>
+                        <li><a href="category.html?type=sofas">Recliners</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Tables & TV Units</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Coffee Tables</a></li>
+                        <li><a href="category.html?type=sofas">TV Media Units</a></li>
+                        <li><a href="category.html?type=sofas">Center Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bedroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Beds</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=beds">King Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Queen Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Single & Bunk Beds</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=storage">Wardrobes</a></li>
+                        <li><a href="category.html?type=storage">Almiraahs</a></li>
+                        <li><a href="category.html?type=storage">Dressing Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Dining Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Dining Sets</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=dining">4-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">6-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">8-Seater Sets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bathroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Vanities & Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=bathroom">Wall Vanities</a></li>
+                        <li><a href="category.html?type=bathroom">Mirror Cabinets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 2: Office & Reception -->
+            <li>
+              <a href="#">Office & Reception</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Office Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=office">Executive Desks</a></li>
+                    <li><a href="category.html?type=office">Ergonomic Chairs</a></li>
+                    <li><a href="category.html?type=office">Workstations</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Reception Area</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=reception">Reception Desks</a></li>
+                    <li><a href="category.html?type=reception">Waiting Chairs</a></li>
+                    <li><a href="category.html?type=reception">Lounge Seating</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 3: Institutional -->
+            <li>
+              <a href="#">Institutional</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">School Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=school">Student Desks</a></li>
+                    <li><a href="category.html?type=school">Classroom Benches</a></li>
+                    <li><a href="category.html?type=school">Study Tables</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">College/University</a>
+                  <ul class="menu level-2">
+                    <li><a href="category.html?type=school">Auditorium Chairs</a></li>
+                    <li><a href="category.html?type=school">Lab Tables</a></li>
+                    <li><a href="category.html?type=school">Seminar Desks</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 4: Outdoor -->
+            <li>
+              <a href="#">Outdoor</a>
+              <ul class="menu level-2">
+                <li><a href="category.html?type=outdoor">Garden Benches</a></li>
+                <li><a href="category.html?type=outdoor">Outdoor Swings</a></li>
+                <li><a href="category.html?type=outdoor">Patio Sets</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <li><a href="custom-order.html" target="_blank">Custom Order</a></li>
+        <li><a href="track.html">Track Order</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+      <div class="nav-icon">
+        <a href="wishlist.html">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <span id="wishlist-count">0</span>
+      </div>
+      
+      <div class="nav-icon cart-icon">
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <span id="cart-count">0</span>
+      </div>
+
+      <a href="login.html">
+        <button class="auth-btn">
+          Login <span>/</span> Signup
+        </button>
+      </a>
+      <span id="user-name" style="margin-left:10px;"></span>
+
+      <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+  </header>
+    <!-- LINKS -->
+
+
+
+    <div class="signup-page">
+
+      <!-- HEADER -->
+      <div class="header">
+        <h1>Pradeep Furniture</h1>
+        <p>Crafting Your Dream Home</p>
+      </div>
+
+      <!-- CARD -->
+      <div class="card">
+
+        <h2 class="title">Register with</h2>
+
+        <!-- SOCIAL -->
+        <div class="social">
+          <button onclick="googleLogin()"><i class="fab fa-google"></i> Google</button>
+          <button onclick="githubLogin()"><i class="fab fa-github"></i> Github</button>
+          <button onclick="facebookLogin()"><i class="fab fa-facebook-f"></i> Facebook</button>
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="divider"><span></span>Or<span></span></div>
+
+        <!-- NAME -->
+        <!-- FIRST NAME + LAST NAME -->
+        <div class="row">
+          <div class="input-box">
+            <input type="text" id="firstname" required placeholder=" ">
+            <label>First Name</label>
+          </div>
+
+          <div class="input-box">
+            <input type="text" id="lastname" required placeholder=" ">
+            <label>Last Name</label>
+          </div>
+        </div>
+
+        <!-- USERNAME -->
+        <div class="input-box">
+          <input type="text" id="username" required placeholder=" ">
+          <label>Choose Username</label>
+          <i id="userIcon"></i>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="input-box">
+          <input type="email" id="email" placeholder=" ">
+          <label>Enter Email Address</label>
+          <i id="emailIcon"></i>
+        </div>
+
+        <div class="divider" style="margin: 0px 0;"><span></span><p style="font-size:12px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">or</p><span></span></div>
+
+        <!-- MOBILE -->
+        <div class="input-box">
+          <input type="text" id="mobile" placeholder=" " maxlength="10">
+          <label>Enter Mobile Number</label>
+          <i id="mobileIcon"></i>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="input-box password-box">
+
+          <input type="password" id="password" required placeholder=" ">
+          <label>Password</label>
+
+          <i class="fa-solid fa-eye-slash" id="toggleIcon" onclick="togglePassword()"></i>
+
+        </div>
+
+        <!-- STRENGTH -->
+        <div class="strength">
+          <div id="line1"></div>
+          <div id="line2"></div>
+          <div id="line3"></div>
+          <div id="line4"></div>
+        </div>
+
+        <small id="strength-text" class="strength-text"></small>
+
+
+
+
+        <!-- TERMS -->
+        <div class="terms">
+          <input type="checkbox" id="agree">
+          <label for="agree">
+            By creating an account you agree to the
+            <a href="#">Terms</a> and
+            <a href="#">Privacy Policy</a>
+          </label>
+        </div>
+
+        <!-- BUTTON -->
+        <button class="btn" id="auth-submit-btn" onclick="signup()">Create Account</button>
+
+        <!-- LOGIN -->
+        <p class="login">
+          Already have an account? <a href="login.html">Login</a>
+        </p>
+
+      </div>
+
+    </div>
+
+    <script>
+      function togglePassword() {
+        const pass = document.getElementById("password");
+        const icon = document.getElementById("toggleIcon");
+
+        if (pass.type === "password") {
+          pass.type = "text";
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");   // 👁️ open
+        } else {
+          pass.type = "password";
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash"); // 🙈 closed
+        }
+      }
+
+
+      const passwordInput = document.getElementById("password");
+      const strengthText = document.getElementById("strength-text");
+      const bars = document.querySelectorAll(".strength div");
+
+      passwordInput.addEventListener("input", () => {
+        let value = passwordInput.value;
+        let score = 0;
+
+        // Reset bars
+        bars.forEach(bar => {
+          bar.className = "";
+          bar.style.background = "var(--border-color)";
+        });
+
+        if (value.length === 0) {
+          strengthText.innerText = "Enter password";
+          strengthText.style.color = "var(--text-muted)";
+          return;
+        }
+
+        // Score system
+        if (value.length >= 8) score++;
+        if (/[a-z]/.test(value) && /[A-Z]/.test(value)) score++;
+        if (/[0-9]/.test(value)) score++;
+        if (/[^A-Za-z0-9]/.test(value)) score++;
+
+        let activeClass = "";
+        if (score === 1) {
+          activeClass = "red";
+          strengthText.innerText = "Weak";
+          strengthText.style.color = "#ef4444";
+        } else if (score === 2) {
+          activeClass = "orange";
+          strengthText.innerText = "Medium";
+          strengthText.style.color = "#f97316";
+        } else if (score === 3) {
+          activeClass = "yellow";
+          strengthText.innerText = "Strong";
+          strengthText.style.color = "#eab308";
+        } else if (score >= 4) {
+          activeClass = "green";
+          strengthText.innerText = "Very Strong";
+          strengthText.style.color = "#22c55e";
+        }
+
+        if (activeClass) {
+          bars.forEach(bar => bar.className = activeClass);
+        }
+      });
+
+      const usernameInput = document.getElementById("username");
+      const userIcon = document.getElementById("userIcon");
+      const takenUsernames = ["admin", "user", "test"];
+
+      // STOPS SPACE KEY COMPLETELY
+      usernameInput.addEventListener("keydown", (e) => {
+        if (e.code === "Space") e.preventDefault();
+      });
+
+      let debounceTimer;
+      usernameInput.addEventListener("input", () => {
+        let val = usernameInput.value.replace(/\s/g, "").toLowerCase();
+        usernameInput.value = val;
+
+        // Reset display while typing
+        userIcon.className = "fa-solid fa-spinner fa-spin"; 
+
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(async () => {
+          if (val.length < 3) {
+            userIcon.className = "";
+            return;
+          }
+
+          // Check against hardcoded reserved words first
+          const reserved = ["admin", "user", "test", "root", "support"];
+          if (reserved.includes(val)) {
+            userIcon.className = "fa-solid fa-circle-xmark invalid";
+            window.showToast("This username is reserved!", "error");
+            return;
+          }
+
+          // Real-time Firestore Check
+          const isAvailable = await window.checkUsernameAvailability(val);
+          if (isAvailable) {
+            userIcon.className = "fa-solid fa-circle-check valid";
+          } else {
+            userIcon.className = "fa-solid fa-circle-xmark invalid";
+            window.showToast("Username already taken! ❌", "error");
+          }
+        }, 600); // 600ms debounce to save on reads
+      });
+
+      const emailInput = document.getElementById("email");
+      const emailIcon = document.getElementById("emailIcon");
+      const mobileInput = document.getElementById("mobile");
+      const mobileIcon = document.getElementById("mobileIcon");
+      
+      const emailBox = emailInput ? emailInput.parentElement : null;
+      const mobileBox = mobileInput ? mobileInput.parentElement : null;
+      const divider = emailBox ? emailBox.nextElementSibling : null;
+
+      emailInput.addEventListener("input", () => {
+        let val = emailInput.value.trim().toLowerCase();
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/;
+
+        if (emailPattern.test(val)) {
+          emailIcon.className = "fa-solid fa-check valid";
+        } else if (val.length > 0) {
+          emailIcon.className = "fa-solid fa-times invalid";
+        } else {
+          emailIcon.className = "";
+        }
+
+        if (val.length > 0) {
+          mobileInput.value = ""; // clear the other
+          mobileIcon.className = "";
+          if(mobileBox) mobileBox.style.display = "none";
+          if(divider) divider.style.display = "none";
+        } else {
+          if(mobileBox) mobileBox.style.display = "";
+          if(divider) divider.style.display = "";
+        }
+      });
+
+      mobileInput.addEventListener("input", () => {
+        let val = mobileInput.value.trim();
+        // Allow only numbers
+        mobileInput.value = val.replace(/[^0-9]/g, '');
+        val = mobileInput.value;
+        let mobilePattern = /^[0-9]{10}$/;
+
+        if (mobilePattern.test(val)) {
+          mobileIcon.className = "fa-solid fa-check valid";
+        } else if (val.length > 0) {
+          mobileIcon.className = "fa-solid fa-times invalid";
+        } else {
+          mobileIcon.className = "";
+        }
+
+        if (val.length > 0) {
+          emailInput.value = ""; // clear the other
+          emailIcon.className = "";
+          if(emailBox) emailBox.style.display = "none";
+          if(divider) divider.style.display = "none";
+        } else {
+          if(emailBox) emailBox.style.display = "";
+          if(divider) divider.style.display = "";
+        }
+      });
+
+      // Initialize OTP Logic for the Email field
+      window.setupEmailOTP("email", "auth-submit-btn");
+
+    </script>
+    <script type="module" src="auth.js"></script>
+    <script src="theme.js"></script>
+  </body>
+</html>
+
+</html>

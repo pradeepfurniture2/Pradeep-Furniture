@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard | Pradeep Furniture</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <!-- Font Awesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="toast.css">
+    <script src="toast.js"></script>
+    
+    <style>
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+            background: var(--bg-color);
+        }
+
+        /* Modern Sidebar */
+        .admin-sidebar {
+            width: 260px;
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-brand {
+            height: 70px;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+
+        .sidebar-brand img { width: 45px; }
+
+        .admin-sidebar .nav-item {
+            padding: 10px 18px;
+            margin: 0 15px 5px 15px;
+            border-radius: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .admin-sidebar .nav-item:hover,
+        .admin-sidebar .nav-item.active {
+            background: var(--accent-light);
+            color: var(--accent-color);
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(196, 155, 99, 0.1);
+        }
+
+        /* LIGHT MODE SPECIFIC FIXES */
+        [data-theme='light'] .admin-sidebar .nav-item.active {
+            background: #fff8f0; /* Soft gold tint for light mode */
+            border: 1px solid rgba(196, 155, 99, 0.2);
+        }
+
+        [data-theme='light'] .admin-layout {
+            background: #fdfdfd; /* Pure but soft background */
+        }
+
+        [data-theme='light'] .metric-card, 
+        [data-theme='light'] .glass-panel {
+            border: 1px solid #eeeeee;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        }
+
+        .admin-sidebar .nav-item i {
+            font-size: 18px;
+            width: 25px;
+            text-align: center;
+        }
+
+        /* Main Content Area */
+        .admin-main {
+            margin-left: 260px;
+            flex: 1;
+            padding: 40px;
+        }
+
+        .admin-header {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .admin-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* Metric Cards */
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .metric-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: var(--accent-light);
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .metric-info h3 {
+            font-size: 32px;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .metric-info p {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Charts & Tables Section */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Premium Table Design */
+        .glass-panel {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .glass-panel h2 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .premium-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .premium-table th {
+            text-align: left;
+            padding: 15px 10px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .premium-table td {
+            padding: 20px 10px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .premium-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-pill {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-pill.active { background: #e8f5e9; color: #2e7d32; }
+        .status-pill.pending { background: #fff3e0; color: #ef6c00; }
+
+        .user-avatar-sm {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-light);
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* PREMIUM BUTTONS */
+        .btn-primary {
+            background: linear-gradient(135deg, #c49b63, #a67c3b);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(196, 155, 99, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(196, 155, 99, 0.3);
+            filter: brightness(1.1);
+        }
+
+        /* TAB SYSTEM */
+        .tab-content {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .search-box-premium {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 300px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .search-box-premium input {
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-primary);
+            flex: 1;
+            font-size: 14px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 🌑 MODAL SYSTEM */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 1100px;
+            max-height: 85vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 25px 35px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .modal-body {
+            padding: 35px;
+            overflow-y: auto;
+            background: var(--bg-color);
+        }
+
+        .close-btn {
+            font-size: 28px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-btn:hover {
+            background: var(--accent-light);
+            color: var(--accent-color);
+            transform: rotate(90deg);
+        }
+
+        /* 🛋️ CATALOG CARD PREMIUM */
+        .admin-catalog-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .admin-catalog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            border-color: var(--accent-color);
+        }
+
+        .admin-catalog-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .admin-catalog-info {
+            padding: 20px;
+        }
+
+        .admin-catalog-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            margin: 5px 0 10px 0;
+            color: var(--text-primary);
+        }
+
+        .admin-catalog-price {
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 17px;
+        }
+
+        #admin-partner-catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+            padding: 5px;
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-body::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 10px;
+        }
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 991px) {
+            .admin-sidebar {
+                left: -260px;
+                transition: all 0.4s cubic-bezier(0.77, 0.2, 0.05, 1);
+                box-shadow: 10px 0 30px rgba(0,0,0,0.2);
+            }
+            .admin-sidebar.active {
+                left: 0;
+            }
+            .admin-main {
+                margin-left: 0;
+                padding: 100px 20px 40px;
+            }
+            .navbar {
+                left: 0 !important;
+                width: 100% !important;
+                padding: 0 15px !important;
+            }
+            .menu-toggle-admin {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                cursor: pointer;
+                color: var(--text-primary);
+                background: var(--card-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                margin-right: 15px;
+            }
+            .metric-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            .metric-card {
+                padding: 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            .metric-icon {
+                margin: 0 auto;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            .admin-header h1 {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 580px) {
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+            .premium-table th, .premium-table td {
+                padding: 15px 10px;
+                font-size: 14px;
+            }
+            .premium-table th:nth-child(4), 
+            .premium-table td:nth-child(4) {
+                display: none; /* Hide date on mobile to save space */
+            }
+            .status-pill {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
+            .admin-main {
+                padding: 90px 15px 30px;
+            }
+        }
+
+        .menu-toggle-admin {
+            display: none;
+        }
+    </style>
+    <script>
+        window.toggleAdminSidebar = function() {
+            const sidebar = document.querySelector(".admin-sidebar");
+            const overlay = document.getElementById("sidebar-overlay") || createOverlay();
+            sidebar.classList.toggle("active");
+            overlay.classList.toggle("active");
+        };
+
+        function createOverlay() {
+            const overlay = document.createElement("div");
+            overlay.id = "sidebar-overlay";
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.5);
+                backdrop-filter: blur(4px);
+                z-index: 999;
+                display: none;
+                transition: 0.3s;
+            `;
+            overlay.onclick = window.toggleAdminSidebar;
+            document.body.appendChild(overlay);
+            
+            const style = document.createElement("style");
+            style.innerHTML = "#sidebar-overlay.active { display: block; }";
+            document.head.appendChild(style);
+            
+            return overlay;
+        }
+    </script>
+</head>
+<body class="admin-page">
+
+    <!-- 🔝 NAVBAR -->
+    <header class="navbar" style="left: 260px; width: calc(100% - 260px); height: 70px; display: flex; align-items: center; padding: 0 20px;">
+      <div class="menu-toggle-admin" onclick="toggleAdminSidebar()">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="dashboard.html">Back to Site</a></li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <span id="admin-name-header" style="font-weight: 600; color: var(--accent-color);">Admin Portal</span>
+        <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Mode">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+        
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar" style="position:fixed; top:0; left:0;">
+            <div class="sidebar-brand">
+              <a href="index.html" class="logo"><img src="images/logo.png" alt="logo"></a>
+            </div>
+            <a href="javascript:void(0)" onclick="switchTab('overview')" class="nav-item tab-link active" id="tab-overview">
+                <i class="fa-solid fa-chart-pie"></i> <span class="nav-text">Overview</span>
+            </a>
+            <a href="admin-orders.html" class="nav-item">
+                <i class="fa-solid fa-boxes-packing"></i> <span class="nav-text">All Orders</span>
+            </a>
+            <a href="admin-products.html" class="nav-item">
+                <i class="fa-solid fa-couch"></i> <span class="nav-text">Manage Products</span>
+            </a>
+            <a href="admin-coupons.html" class="nav-item">
+                <i class="fa-solid fa-ticket"></i> <span class="nav-text">Manage Coupons</span>
+            </a>
+            <a href="javascript:void(0)" onclick="switchTab('users')" class="nav-item tab-link" id="tab-users">
+                <i class="fa-solid fa-users"></i> <span class="nav-text">Users</span>
+            </a>
+            <a href="javascript:void(0)" onclick="switchTab('analytics')" class="nav-item tab-link" id="tab-analytics">
+                <i class="fa-solid fa-chart-line"></i> <span class="nav-text">Analytics</span>
+            </a>
+            <a href="javascript:void(0)" onclick="switchTab('reviews')" class="nav-item tab-link" id="tab-reviews">
+                <i class="fa-solid fa-comments"></i> <span class="nav-text">Recent Reviews</span>
+            </a>
+            <a href="javascript:void(0)" onclick="switchTab('partners')" class="nav-item tab-link" id="tab-partners" style="position:relative;">
+                <i class="fa-solid fa-handshake"></i> 
+                <span class="nav-text">Manage Partners</span>
+                <span id="partner-badge" style="display:none; position:absolute; right:10px; top:50%; transform:translateY(-50%); background:#d32f2f; color:white; font-size:10px; padding:2px 6px; border-radius:10px; font-weight:700;">0</span>
+            </a>
+            <div style="flex-grow: 1;"></div>
+            <a href="#" class="nav-item" onclick="window.logout()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> <span class="nav-text">Logout</span>
+            </a>
+        </aside>
+
+        <!-- MAIN AREA -->
+        <main class="admin-main">
+
+            <!-- 🏠 OVERVIEW SECTION -->
+            <section id="overview-section" class="tab-content" style="display: block;">
+                <div class="admin-header">
+                    <div>
+                        <h1 id="welcome-text">Owner Dashboard</h1>
+                        <p>Here's what's happening with your platform today.</p>
+                    </div>
+                    <button class="btn-primary" onclick="window.location.reload()"><i class="fa-solid fa-rotate-right"></i> Refresh Data</button>
+                </div>
+
+                <!-- METRICS -->
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-users">0</h3>
+                            <p>Total Users</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon"><i class="fa-solid fa-couch"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-orders">0</h3>
+                            <p>Total Orders</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon" style="background:#fff3e0; color:#ef6c00;"><i class="fa-solid fa-clock"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-pending">0</h3>
+                            <p>Pending Processing</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-check-double"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-delivered">0</h3>
+                            <p>Orders Delivered</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- RECENT ORDERS -->
+                    <div class="glass-panel">
+                        <h2><i class="fa-solid fa-bolt" style="color: var(--accent-color);"></i> Recent Orders</h2>
+                        <div style="overflow-x: auto;">
+                            <table class="premium-table">
+                                <thead>
+                                    <tr>
+                                        <th>Furniture</th>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-orders-list">
+                                    <tr><td colspan="5" style="text-align:center;">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="margin-top: 20px; text-align: right;">
+                            <a href="admin-orders.html" style="color: var(--accent-color); font-weight: 600; text-decoration: none;">View All Orders →</a>
+                        </div>
+                    </div>
+
+                    <!-- ANALYTICS CHART -->
+                    <div class="glass-panel">
+                        <h2><i class="fa-solid fa-chart-pie" style="color: var(--accent-color);"></i> Order Distribution</h2>
+                        <div style="position: relative; height: 300px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                            <canvas id="orderStatusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RECENT USERS -->
+                <div class="glass-panel" style="margin-bottom: 40px;">
+                    <h2><i class="fa-solid fa-user-plus" style="color: var(--accent-color);"></i> Newly Registered Users</h2>
+                    <div style="overflow-x: auto;">
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>User Profile</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Joined</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-users-list">
+                                <tr><td colspan="4" style="text-align:center;">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 👥 USERS SECTION -->
+            <section id="users-section" class="tab-content" style="display: none;">
+                <div class="admin-header">
+                    <div>
+                        <h1>User Management</h1>
+                        <p>View and manage all registered accounts.</p>
+                    </div>
+                    <div class="search-box-premium">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="user-search" placeholder="Search by name or email..." oninput="searchUsers()">
+                    </div>
+                </div>
+
+                <div class="glass-panel">
+                    <div style="overflow-x: auto;">
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Joined Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="all-users-list">
+                                <tr><td colspan="5" style="text-align:center;">Loading users...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 📊 ANALYTICS SECTION -->
+            <section id="analytics-section" class="tab-content" style="display: none;">
+                <div class="admin-header">
+                    <div>
+                        <h1>Platform Insights</h1>
+                        <p>Advanced metrics and growth trends for your furniture business.</p>
+                    </div>
+                </div>
+
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-revenue">₹0</h3>
+                            <p>Estimated Revenue</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon" style="background:#e3f2fd; color:#1e88e5;"><i class="fa-solid fa-chart-line"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-growth">+0%</h3>
+                            <p>Monthly Growth</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="glass-panel">
+                        <h2><i class="fa-solid fa-timeline"></i> Order Growth Over Time</h2>
+                        <div style="height: 350px;">
+                            <canvas id="orderTrendsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="glass-panel">
+                        <h2><i class="fa-solid fa-star"></i> Customer Satisfaction</h2>
+                        <div style="height: 350px; display:flex; align-items:center; justify-content:center; text-align:center;">
+                            <div>
+                                <h1 style="font-size: 64px; color: var(--accent-color);">4.9</h1>
+                                <div style="color: #fbc02d; font-size: 24px; margin-bottom: 15px;">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <p>Based on recent deliveries</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- REVIEWS SECTION -->
+            <section id="reviews-section" class="tab-content" style="display: none;">
+                <div class="content-header">
+            <h1 style="font-family:'Playfair Display'; font-size:36px; margin:0;">Customer Feedback</h1>
+            <p style="color:var(--text-muted); margin-bottom:30px;">Moderate and manage all genuine reviews from your store.</p>
+        </div>
+
+        <div class="glass-panel" style="padding:0;">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Rating</th>
+                        <th>Comment</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="all-reviews-list">
+                    <!-- Dynamic Reviews -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+            <!-- PARTNERS SECTION -->
+            <section id="partners-section" class="tab-content" style="display: none;">
+                <div class="admin-header">
+            <div>
+                <h1>Showroom Partnerships</h1>
+                <p>Manage your showroom partners and their performance.</p>
+            </div>
+            <div class="search-box-premium">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="partner-search" placeholder="Search partners..." oninput="searchPartners()">
+            </div>
+        </div>
+
+        <div class="metric-grid" style="margin-left:0; width:100%;">
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fa-solid fa-handshake"></i></div>
+                <div class="metric-info">
+                    <h3 id="stat-partners-count">0</h3>
+                    <p>Active Partners</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon" style="background:#e3f2fd; color:#1e88e5;"><i class="fa-solid fa-bullhorn"></i></div>
+                <div class="metric-info">
+                    <h3 id="stat-total-partner-leads">0</h3>
+                    <p>Partner Leads</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                <div class="metric-info">
+                    <h3 id="stat-partner-revenue">₹0</h3>
+                    <p>Partner Revenue</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon" style="background:#fff3e0; color:#ef6c00;"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                <div class="metric-info">
+                    <h3 id="stat-partner-payouts">₹0</h3>
+                    <p>Total Payouts</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon" style="background:#ffebee; color:#d32f2f;"><i class="fa-solid fa-ban"></i></div>
+                <div class="metric-info">
+                    <h3 id="stat-partner-cancelled">0</h3>
+                    <p>Cancelled Leads</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-panel">
+            <h2><i class="fa-solid fa-users-gear" style="color:var(--accent-color);"></i> Partner Management</h2>
+            <div style="overflow-x: auto;">
+                <table class="premium-table">
+                    <thead>
+                        <tr>
+                            <th>Partner / Showroom</th>
+                            <th>Email</th>
+                            <th>Leads</th>
+                            <th>Earnings</th>
+                            <th>Total Paid</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="all-partners-list">
+                        <tr><td colspan="5" style="text-align:center;">Loading partners...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="glass-panel" style="margin-top:40px;">
+            <h2><i class="fa-solid fa-file-signature" style="color:var(--accent-color);"></i> Pending Partner Applications</h2>
+            <div style="overflow-x: auto;">
+                <table class="premium-table">
+                    <thead>
+                        <tr>
+                            <th>Showroom / Applicant</th>
+                            <th>Email & Contact</th>
+                            <th>City & Address</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="partner-applications-list">
+                        <tr><td colspan="5" style="text-align:center;">Loading applications...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="glass-panel" style="margin-top:40px;">
+            <h2><i class="fa-solid fa-list-check" style="color:var(--accent-color);"></i> All Partner Leads</h2>
+            <div style="overflow-x: auto;">
+                <table class="premium-table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Showroom Source</th>
+                            <th>Product</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-all-leads-list">
+                        <tr><td colspan="6" style="text-align:center;">Loading leads...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Partner Catalog Modal -->
+    <div id="partnerCatalogModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <div>
+                    <h2 id="catalog-modal-title">Partner's Catalog</h2>
+                    <p style="color:var(--text-muted); font-size:13px;" id="catalog-modal-subtitle">Items uploaded by this partner.</p>
+                </div>
+                <span class="close-btn" onclick="document.getElementById('partnerCatalogModal').style.display='none'">&times;</span>
+            </div>
+            <div class="modal-body" style="padding: 25px; background:var(--bg-color);">
+                <div class="catalog-grid" id="admin-partner-catalog-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+                    <!-- Items rendered via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="toast.js"></script>
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="admin-dashboard.js"></script>
+    <script src="theme.js"></script>
+</body>
+</html>

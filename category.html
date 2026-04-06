@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Products - Pradeep Furniture</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="toast.css">
+  <script src="toast.js"></script>
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <style>
+    .category-page { padding-top: 120px; min-height: 80vh; }
+    .category-header { text-align: center; margin-bottom: 40px; }
+    .category-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--text-primary); margin-bottom: 10px; text-transform: capitalize; }
+    .no-products { text-align: center; padding: 100px 20px; font-size: 1.2rem; color: var(--text-secondary); }
+    .back-btn { display: inline-block; margin-top: 20px; padding: 10px 25px; background: var(--accent-color); color: #fff; text-decoration: none; border-radius: 30px; transition: 0.3s; }
+    .back-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 768px) {
+      .category-page { padding-top: 100px; }
+      .category-header h1 { font-size: 2.2rem; }
+    }
+    @media (max-width: 480px) {
+      .category-header h1 { font-size: 1.8rem; }
+      .category-page { padding-top: 90px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      ☰
+    </div>
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+
+    </a>
+
+    <!-- LINKS -->
+    <nav>
+      <ul class="nav-links">
+
+        <li><a href="index.html">Home</a></li>
+
+        <!-- DROPDOWN (GLOBAL FURNITURE) -->
+        <li class="dropdown">
+          <a href="#" class="active">Furniture Categories</a>
+
+          <ul class="menu level-1">
+            <!-- Sector 1: Home Furniture -->
+            <li>
+              <a href="#">Home Furniture</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Living Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Sofas & Seating</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Luxury Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sectional Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sofa cum Beds</a></li>
+                        <li><a href="category.html?type=sofas">Recliners</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Tables & TV Units</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Coffee Tables</a></li>
+                        <li><a href="category.html?type=sofas">TV Media Units</a></li>
+                        <li><a href="category.html?type=sofas">Center Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bedroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Beds</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=beds">King Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Queen Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Single & Bunk Beds</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=storage">Wardrobes</a></li>
+                        <li><a href="category.html?type=storage">Almiraahs</a></li>
+                        <li><a href="category.html?type=storage">Dressing Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Dining Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Dining Sets</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=dining">4-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">6-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">8-Seater Sets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bathroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Vanities & Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=bathroom">Wall Vanities</a></li>
+                        <li><a href="category.html?type=bathroom">Mirror Cabinets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 2: Office & Reception -->
+            <li>
+              <a href="#">Office & Reception</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Office Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=office">Executive Desks</a></li>
+                    <li><a href="category.html?type=office">Ergonomic Chairs</a></li>
+                    <li><a href="category.html?type=office">Workstations</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Reception Area</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=reception">Reception Desks</a></li>
+                    <li><a href="category.html?type=reception">Waiting Chairs</a></li>
+                    <li><a href="category.html?type=reception">Lounge Seating</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 3: Institutional -->
+            <li>
+              <a href="#">Institutional</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">School Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=school">Student Desks</a></li>
+                    <li><a href="category.html?type=school">Classroom Benches</a></li>
+                    <li><a href="category.html?type=school">Study Tables</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">College/University</a>
+                  <ul class="menu level-2">
+                    <li><a href="category.html?type=school">Auditorium Chairs</a></li>
+                    <li><a href="category.html?type=school">Lab Tables</a></li>
+                    <li><a href="category.html?type=school">Seminar Desks</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 4: Outdoor -->
+            <li>
+              <a href="#">Outdoor</a>
+              <ul class="menu level-2">
+                <li><a href="category.html?type=outdoor">Garden Benches</a></li>
+                <li><a href="category.html?type=outdoor">Outdoor Swings</a></li>
+                <li><a href="category.html?type=outdoor">Patio Sets</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+
+        <li><a href="custom-order.html" target="_blank">Custom Order</a></li>
+        <li><a href="track.html">Track Order</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+      <div class="nav-icon">
+        <a href="wishlist.html">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <span id="wishlist-count">0</span>
+      </div>
+
+      <div class="nav-icon cart-icon">
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <span id="cart-count">0</span>
+      </div>
+
+      <a href="login.html">
+        <button class="auth-btn">
+          Login <span>/</span> Signup
+        </button>
+      </a>
+      <span id="user-name" style="margin-left:10px;"></span>
+
+      <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Mode">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="category-page">
+    <div class="category-header">
+      <h1 id="cat-title">Our Collection</h1>
+      <p id="cat-desc">Discover premium furniture for your space.</p>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div id="product-list" class="products">
+      <!-- Dynamically filled -->
+    </div>
+
+    <div id="empty-state" class="no-products" style="display: none;">
+      <i class="fa-solid fa-box-open" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.3;"></i>
+      <h2>No products found in this category.</h2>
+      <p>We are constantly updating our inventory. Please check back soon!</p>
+      <a href="index.html" class="back-btn">Back to Home</a>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2026 Pradeep Furniture. All Rights Reserved.</p>
+  </footer>
+
+  <script src="main.js"></script>
+  <script type="module">
+    import { products } from './database.js';
+
+    function renderFilteredProducts() {
+      const params = new URLSearchParams(window.location.search);
+      const type = params.get('type');
+      const titleEl = document.getElementById('cat-title');
+      const gridEl = document.getElementById('product-list');
+      const emptyEl = document.getElementById('empty-state');
+
+      if (type) {
+        titleEl.innerText = type.charAt(0).toUpperCase() + type.slice(1);
+      }
+
+      // Filter products - basic logic: match category string
+      const filtered = products.filter(p => p.category.toLowerCase() === type?.toLowerCase());
+
+      if (filtered.length === 0) {
+        gridEl.style.display = 'none';
+        emptyEl.style.display = 'block';
+        return;
+      }
+
+      gridEl.innerHTML = '';
+      filtered.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <div class="card-img">
+            <img src="${product.image}" alt="${product.name}">
+            <div class="wishlist"><i class="fa-regular fa-heart"></i></div>
+          </div>
+          <div class="card-content">
+            <div class="card-header-info">
+                <span class="product-id">ID: ${product.id}</span>
+                <div class="rating"><i class="fa-solid fa-star"></i> ${product.review}</div>
+            </div>
+            <h3 style="color: var(--text-primary); margin-bottom: 10px;">${product.name}</h3>
+            <div class="price" style="font-size: 1.2rem; color: var(--accent-color);">₹${product.price.toLocaleString()}</div>
+            <div class="card-buttons">
+               <button class="add" onclick="window.addToCart('${product.name}', ${product.price})">Add to Cart</button>
+               <button class="custom" onclick="window.location.href='custom-order.html'">Custom</button>
+            </div>
+          </div>
+        `;
+        gridEl.appendChild(card);
+      });
+    }
+
+    renderFilteredProducts();
+    // Re-init theme toggle for this page
+    document.getElementById('theme-toggle').onclick = () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+    };
+  </script>
+</body>
+</html>

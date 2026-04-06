@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | Pradeep Furniture</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="toast.css">
+    <script src="toast.js"></script>
+
+    <style>
+        .product-detail-container {
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 50px;
+        }
+
+        .product-image-viewer {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            position: sticky;
+            top: 120px;
+        }
+
+        .product-image-viewer img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            object-fit: cover;
+        }
+
+        .product-info-panel h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .product-detail-id {
+            color: var(--accent-color);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 992px) {
+            .product-detail-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-top: 100px;
+            }
+            .product-image-viewer {
+                position: static;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            .product-info-panel h1 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .product-detail-container {
+                padding: 0 15px;
+                margin-top: 90px;
+            }
+            .product-info-panel h1 {
+                font-size: 28px;
+            }
+            .product-detail-price {
+                font-size: 26px;
+            }
+            .reviews-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        .product-detail-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 20px 0;
+        }
+
+        .product-description {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        /* Review Section Styles */
+        .reviews-section {
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 40px;
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .review-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .review-card:hover { transform: translateY(-3px); box-shadow: var(--card-shadow); }
+
+        .review-user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .user-avatar-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--accent-light);
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .review-rating-stars { color: #fbc02d; font-size: 14px; margin-bottom: 8px; }
+        .review-comment { color: var(--text-primary); line-height: 1.6; font-size: 15px; }
+        .review-date { font-size: 11px; color: var(--text-muted); margin-top: 10px; display: block;}
+
+        /* Review Form */
+        .write-review-box {
+            background: var(--card-bg);
+            border: 2px dashed var(--accent-color);
+            border-radius: 24px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .star-rating-input {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            font-size: 24px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .star-rating-input i.active { color: #fbc02d; }
+
+        .review-textarea {
+            width: 100%;
+            min-height: 120px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 15px;
+            color: var(--text-primary);
+            font-family: inherit;
+            margin-bottom: 15px;
+            resize: none;
+        }
+
+        .submit-review-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-review-btn:hover { background: #a67c52; transform: scale(1.05); }
+
+        @media (max-width: 900px) {
+            .product-detail-container { 
+                grid-template-columns: 1fr; 
+                margin-top: 100px; 
+                gap: 30px;
+                padding: 0 15px;
+            }
+            .product-image-viewer { 
+                position: static; 
+                padding: 15px;
+                border-radius: 20px;
+            }
+            .product-info-panel h1 {
+                font-size: 32px;
+            }
+            .product-detail-price {
+                font-size: 28px;
+            }
+            .product-description {
+                font-size: 15px;
+            }
+            .write-review-box {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-detail-container {
+                margin-top: 80px;
+            }
+            .product-info-panel h1 {
+                font-size: 28px;
+            }
+            .card-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .add, .custom {
+                width: 100%;
+                padding: 12px !important;
+            }
+            .reviews-header h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      ☰
+    </div>
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+
+    </a>
+
+    <!-- LINKS -->
+    <nav>
+      <ul class="nav-links">
+
+        <li><a href="index.html">Home</a></li>
+
+        <!-- DROPDOWN (GLOBAL FURNITURE) -->
+        <li class="dropdown">
+          <a href="#">Furniture Categories</a>
+
+          <ul class="menu level-1">
+            <!-- Sector 1: Home Furniture -->
+            <li>
+              <a href="#">Home Furniture</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Living Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Sofas & Seating</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Luxury Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sectional Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sofa cum Beds</a></li>
+                        <li><a href="category.html?type=sofas">Recliners</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Tables & TV Units</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Coffee Tables</a></li>
+                        <li><a href="category.html?type=sofas">TV Media Units</a></li>
+                        <li><a href="category.html?type=sofas">Center Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bedroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Beds</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=beds">King Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Queen Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Single & Bunk Beds</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=storage">Wardrobes</a></li>
+                        <li><a href="category.html?type=storage">Almiraahs</a></li>
+                        <li><a href="category.html?type=storage">Dressing Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Dining Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Dining Sets</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=dining">4-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">6-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">8-Seater Sets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bathroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Vanities & Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=bathroom">Wall Vanities</a></li>
+                        <li><a href="category.html?type=bathroom">Mirror Cabinets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 2: Office & Reception -->
+            <li>
+              <a href="#">Office & Reception</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Office Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=office">Executive Desks</a></li>
+                    <li><a href="category.html?type=office">Ergonomic Chairs</a></li>
+                    <li><a href="category.html?type=office">Workstations</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Reception Area</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=reception">Reception Desks</a></li>
+                    <li><a href="category.html?type=reception">Waiting Chairs</a></li>
+                    <li><a href="category.html?type=reception">Lounge Seating</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 3: Institutional -->
+            <li>
+              <a href="#">Institutional</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">School Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=school">Student Desks</a></li>
+                    <li><a href="category.html?type=school">Classroom Benches</a></li>
+                    <li><a href="category.html?type=school">Study Tables</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">College/University</a>
+                  <ul class="menu level-2">
+                    <li><a href="category.html?type=school">Auditorium Chairs</a></li>
+                    <li><a href="category.html?type=school">Lab Tables</a></li>
+                    <li><a href="category.html?type=school">Seminar Desks</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 4: Outdoor -->
+            <li>
+              <a href="#">Outdoor</a>
+              <ul class="menu level-2">
+                <li><a href="category.html?type=outdoor">Garden Benches</a></li>
+                <li><a href="category.html?type=outdoor">Outdoor Swings</a></li>
+                <li><a href="category.html?type=outdoor">Patio Sets</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+
+        <li><a href="custom-order.html" target="_blank">Custom Order</a></li>
+        <li><a href="track.html">Track Order</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+      <div class="nav-icon">
+        <a href="wishlist.html">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <span id="wishlist-count">0</span>
+      </div>
+
+      <div class="nav-icon cart-icon">
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <span id="cart-count">0</span>
+      </div>
+
+      <a href="login.html">
+        <button class="auth-btn">
+          Login <span>/</span> Signup
+        </button>
+      </a>
+      <span id="user-name" style="margin-left:10px;"></span>
+
+      <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Mode">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+    </div>
+  </header>
+
+    <div class="product-detail-container">
+        <!-- IMAGE SIDE -->
+        <div class="product-image-viewer">
+            <img id="main-product-img" src="images/placeholder.jpg" alt="Furniture Image">
+        </div>
+
+        <!-- INFO SIDE -->
+        <div class="product-info-panel">
+            <span class="product-detail-id" id="display-id">ID: #PF-0000</span>
+            <h1 id="display-name">Loading Product...</h1>
+            
+            <div class="rating" id="display-rating">
+                <!-- Stars Dynamic -->
+            </div>
+
+            <div class="product-detail-price" id="display-price">₹0</div>
+
+            <p class="product-description" id="display-desc">
+                High-quality furniture crafted with precision and premium materials. 
+                Designed to provide comfort and add a touch of elegance to your home.
+            </p>
+
+            <div class="card-buttons" style="display:flex; gap:15px; margin-bottom: 40px;">
+                <button class="add" id="addToCartBtn" style="flex:1; padding:15px;">Add to Cart</button>
+                <button class="custom" id="customizeBtn" style="flex:1; padding:15px;">Customize</button>
+            </div>
+
+            <!-- REVIEWS -->
+            <div class="reviews-section">
+                <div class="reviews-header">
+                    <h2>Customer Reviews</h2>
+                    <span id="reviews-count-text">0 reviews</span>
+                </div>
+
+                <div id="reviews-list">
+                    <p style="color:var(--text-muted);">Fetching honest reviews...</p>
+                    <!-- Review cards go here -->
+                </div>
+
+                <!-- ADD REVIEW FORM -->
+                <div class="write-review-box" id="review-form-container" style="display:none;">
+                    <h3>Share Your Experience</h3>
+                    <p style="font-size:13px; color:var(--text-muted);">How much did you like this furniture?</p>
+                    
+                    <div class="star-rating-input" id="star-selector">
+                        <i class="fa-solid fa-star" data-val="1"></i>
+                        <i class="fa-solid fa-star" data-val="2"></i>
+                        <i class="fa-solid fa-star" data-val="3"></i>
+                        <i class="fa-solid fa-star" data-val="4"></i>
+                        <i class="fa-solid fa-star" data-val="5"></i>
+                    </div>
+
+                    <textarea class="review-textarea" id="review-text" placeholder="Write your honest review here..."></textarea>
+                    
+                    <button class="submit-review-btn" id="submitReview">Post Review</button>
+                </div>
+
+                <div id="login-to-review" style="display:none; text-align:center; padding:30px; background:var(--card-bg); border-radius:20px; border:1px dashed var(--border-color); margin-top:20px;">
+                    <p>Please <a href="login.html" style="color:var(--accent-color); font-weight:700;">Login</a> to share your genuine feedback.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="product-detail.js"></script>
+    <script src="theme.js"></script>
+</body>
+</html>

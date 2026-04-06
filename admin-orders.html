@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders | Admin | Pradeep Furniture</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="toast.css">
+    <script src="toast.js"></script>
+    <style>
+        .admin-controls {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--bg-color);
+            border-radius: 12px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .admin-select {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            flex-grow: 1;
+        }
+        .update-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .update-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(196, 155, 99, 0.3);
+        }
+        .order-card.selected {
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(196, 155, 99, 0.2);
+        }
+        .stats-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .summary-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .summary-card h4 { font-size: 24px; color: var(--accent-color); }
+        .summary-card p { font-size: 13px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+
+        /* Inherited Sidebar & Layout Styles */
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+            background: var(--bg-color);
+        }
+
+        .admin-sidebar {
+            width: 260px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-brand {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+
+        .sidebar-brand img { width: 45px; }
+
+        .admin-sidebar .nav-item {
+            padding: 10px 18px;
+            margin: 0 15px 5px 15px;
+            border-radius: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .admin-sidebar .nav-item:hover,
+        .admin-sidebar .nav-item.active {
+            background: var(--accent-light);
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .admin-sidebar .nav-item i {
+            font-size: 18px;
+            width: 25px;
+            text-align: center;
+        }
+
+        .admin-main {
+            margin-left: 260px;
+            flex: 1;
+            padding: 40px;
+        }
+
+        .admin-header {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Filter Bar Styles */
+        .filter-bar {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .search-wrapper {
+            flex-grow: 1;
+            position: relative;
+        }
+        .search-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-primary);
+            outline: none;
+            transition: 0.3s;
+        }
+        .search-input:focus { border-color: var(--accent-color); }
+        .filter-select {
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-primary);
+            min-width: 180px;
+        }
+
+        /* Order Card Details Button */
+        .details-btn {
+            background: rgba(196, 155, 99, 0.1);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .details-btn:hover { background: var(--accent-color); color: white; }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlide 0.3s ease-out;
+        }
+        @keyframes modalSlide {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            z-index: 5;
+        }
+        .modal-header h2 { font-family: 'Playfair Display'; font-size: 24px; margin: 0; }
+        .close-modal { font-size: 24px; cursor: pointer; color: var(--text-muted); }
+        .modal-body { padding: 30px; }
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .detail-item { margin-bottom: 15px; }
+        .detail-item label { display: block; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .detail-item p { font-size: 15px; font-weight: 500; margin: 0; color: var(--text-primary); }
+        .full-width { grid-column: 1 / -1; }
+
+        @media (max-width: 1024px) {
+            .admin-sidebar { width: 80px; padding: 30px 10px; }
+            .admin-sidebar span.nav-text { display: none; }
+            .admin-sidebar .nav-item { justify-content: center; padding: 15px; }
+            .admin-main { margin-left: 80px; padding: 20px; }
+            .details-grid { grid-template-columns: 1fr; }
+        }
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 991px) {
+            .admin-sidebar {
+                left: -260px;
+                transition: all 0.4s ease;
+            }
+            .admin-sidebar.active {
+                left: 0;
+            }
+            .admin-main {
+                margin-left: 0 !important;
+                padding: 100px 15px 40px !important;
+            }
+            .navbar {
+                left: 0 !important;
+                width: 100% !important;
+            }
+            .menu-toggle-admin {
+                display: block !important;
+                font-size: 20px;
+                cursor: pointer;
+                color: var(--text-primary);
+                margin-right: 15px;
+            }
+            .stats-summary {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .menu-toggle-admin {
+            display: none;
+        }
+    </style>
+    <script>
+        window.toggleAdminSidebar = function() {
+            const sidebar = document.querySelector(".admin-sidebar");
+            sidebar.classList.toggle("active");
+        };
+    </script>
+</head>
+<body class="admin-page">
+
+    <!-- 🔝 NAVBAR -->
+    <header class="navbar" style="left: 260px; width: calc(100% - 260px); height: 70px; display: flex; align-items: center; padding: 0 20px;">
+      <div class="menu-toggle-admin" onclick="toggleAdminSidebar()">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="admin-dashboard.html">Overview</a></li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <span id="admin-name" style="font-weight: 600; color: var(--accent-color);"></span>
+        <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-brand">
+              <a href="index.html" class="logo"><img src="images/logo.png" alt="logo"></a>
+            </div>
+            <a href="admin-dashboard.html" class="nav-item">
+                <i class="fa-solid fa-chart-pie"></i> <span class="nav-text">Overview</span>
+            </a>
+            <a href="admin-orders.html" class="nav-item active">
+                <i class="fa-solid fa-boxes-packing"></i> <span class="nav-text">All Orders</span>
+            </a>
+            <a href="admin-products.html" class="nav-item">
+                <i class="fa-solid fa-couch"></i> <span class="nav-text">Manage Products</span>
+            </a>
+            <a href="admin-coupons.html" class="nav-item">
+                <i class="fa-solid fa-ticket"></i> <span class="nav-text">Manage Coupons</span>
+            </a>
+            <a href="admin-dashboard.html?tab=users" class="nav-item">
+                <i class="fa-solid fa-users"></i> <span class="nav-text">Users</span>
+            </a>
+            <a href="admin-dashboard.html?tab=analytics" class="nav-item">
+                <i class="fa-solid fa-chart-line"></i> <span class="nav-text">Analytics</span>
+            </a>
+            <a href="admin-dashboard.html?tab=reviews" class="nav-item">
+                <i class="fa-solid fa-comments"></i> <span class="nav-text">Recent Reviews</span>
+            </a>
+            <div style="flex-grow: 1;"></div>
+            <a href="#" class="nav-item" onclick="window.logout()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> <span class="nav-text">Logout</span>
+            </a>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="admin-main">
+            <section class="dashboard-content">
+                <header class="admin-header">
+                    <div>
+                        <h1 class="welcome-text" style="font-family:'Playfair Display'; font-size:36px; margin:0;">Order Management Center</h1>
+                        <p style="color: var(--text-muted);">Move orders through the production lifecycle. Real-time sync with customers.</p>
+                    </div>
+                </header>
+
+            <div class="stats-summary">
+                <div class="summary-card"><h4 id="count-total">0</h4><p>Total Requests</p></div>
+                <div class="summary-card"><h4 id="count-pending">0</h4><p>Pending</p></div>
+                <div class="summary-card"><h4 id="count-production">0</h4><p>In Production</p></div>
+                <div class="summary-card"><h4 id="count-delivered">0</h4><p>Completed</p></div>
+            </div>
+
+            <!-- SEARCH & FILTER -->
+            <div class="filter-bar">
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="orderSearch" class="search-input" placeholder="Search by name, mobile, or Order ID...">
+                </div>
+                <select id="typeFilter" class="filter-select">
+                    <option value="all">All Types</option>
+                    <option value="custom">Custom Orders</option>
+                    <option value="cart">Cart Orders</option>
+                </select>
+                <select id="statusFilter" class="filter-select">
+                    <option value="all">All Statuses</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Designing">Designing</option>
+                    <option value="Material Selection">Material Selection</option>
+                    <option value="In Production">In Production</option>
+                    <option value="Finishing & QC">Finishing & QC</option>
+                    <option value="Out for Delivery">Out for Delivery</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
+            </div>
+
+            <div id="all-orders-list">
+                <!-- Dynamic -->
+                <div class="loading-state" style="text-align: center; padding: 50px;">
+                    <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 40px; color: var(--accent-color);"></i>
+                    <p style="margin-top: 15px;">Loading Order Database...</p>
+                </div>
+            </div>
+            </div>
+        </section>
+    </main>
+    <!-- DETAILS MODAL -->
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Custom Order Details</h2>
+                <span class="close-modal" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Populated via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- PROMPT MODAL -->
+    <div class="modal" id="promptModal">
+        <div class="modal-content" style="max-width: 450px;">
+            <div class="modal-header">
+                <h2 style="font-size: 20px;">Order Status Note</h2>
+                <span class="close-modal" id="closePromptModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="promptText" style="margin-bottom: 15px; color: var(--text-secondary);"></p>
+                <input type="text" id="promptInput" class="search-input" style="width: 100%; box-sizing: border-box; margin-bottom: 20px;">
+                <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button id="cancelPromptBtn" style="padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border-color); background: transparent; color: var(--text-primary); cursor: pointer;">Cancel</button>
+                    <button id="confirmPromptBtn" class="update-btn">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIRM MODAL -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content" style="max-width: 400px; text-align: center; padding: 40px 20px;">
+            <div class="modal-body">
+                <i class="fa-solid fa-circle-question" style="font-size: 50px; color: var(--accent-color); margin-bottom: 20px;"></i>
+                <h2 style="font-size: 22px; margin-bottom: 10px;">Are you sure?</h2>
+                <p id="confirmText" style="margin-bottom: 25px; color: var(--text-secondary);"></p>
+                <div style="display: flex; justify-content: center; gap: 15px;">
+                    <button id="cancelConfirmBtn" style="padding: 10px 25px; border-radius: 8px; border: 1px solid var(--border-color); background: transparent; color: var(--text-primary); cursor: pointer;">No, Cancel</button>
+                    <button id="yesConfirmBtn" class="update-btn">Yes, I'm sure</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <!-- Project Scripts -->
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="admin-orders.js"></script>
+    <script src="theme.js"></script>
+</body>
+</html>

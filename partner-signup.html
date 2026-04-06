@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Application | Pradeep Furniture</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="toast.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        .partner-signup-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        }
+        [data-theme='dark'] .partner-signup-container {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+        }
+        .partner-card {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+        .partner-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .partner-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        .partner-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .full-width {
+            grid-column: span 2;
+        }
+        .input-box {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .input-box input, .input-box textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .btn-apply {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #c49b63, #a67c3b);
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        .btn-apply:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(196, 155, 99, 0.3);
+        }
+        .success-step {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="partner-signup-container">
+        <div class="partner-card" id="signup-card">
+            <div class="partner-header">
+                <a href="index.html"><img src="images/logo.png" alt="logo" style="width: 50px; margin-bottom: 15px;"></a>
+                <h1>Partner with Pradeep Furniture</h1>
+                <p>Expand your showroom collection with our premium furniture range.</p>
+            </div>
+
+            <form id="partner-registration-form">
+                <div class="form-grid">
+                    <div class="input-box">
+                        <input type="text" id="p-firstname" required placeholder=" ">
+                        <label>First Name</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" id="p-lastname" required placeholder=" ">
+                        <label>Last Name</label>
+                    </div>
+                    <div class="input-box full-width">
+                        <input type="text" id="p-showroom" required placeholder=" ">
+                        <label>Showroom Name</label>
+                    </div>
+                    <div class="input-box full-width">
+                        <input type="email" id="p-email" required placeholder=" ">
+                        <label>Email Address</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="tel" id="p-phone" required placeholder=" ">
+                        <label>Phone Number</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" id="p-city" required placeholder=" ">
+                        <label>City</label>
+                    </div>
+                    <div class="input-box full-width">
+                        <textarea id="p-address" rows="3" required placeholder=" "></textarea>
+                        <label>Complete Showroom Address</label>
+                    </div>
+                    <div class="input-box full-width">
+                        <input type="password" id="p-password" required placeholder=" ">
+                        <label>Set Password</label>
+                    </div>
+                </div>
+
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+                    <i class="fa-solid fa-circle-info"></i> Your application will be reviewed by our team. You will be notified via email once approved.
+                </div>
+
+                <button type="submit" class="btn-apply" id="submit-btn">
+                    Submit Application <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>
+                </button>
+            </form>
+
+            <div class="success-step" id="success-step">
+                <div style="font-size: 64px; color: #22c55e; margin-bottom: 20px;">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h2>Application Submitted!</h2>
+                <p style="margin-bottom: 30px;">Thank you for your interest in partnering with Pradeep Furniture. Our team will review your application and contact you within 24-48 hours.</p>
+                <a href="index.html" class="btn-apply" style="display: block; text-decoration: none;">Return to Home</a>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="font-size: 14px; color: var(--text-muted);">Already a partner? <a href="partner-login.html" style="color: var(--accent-color); font-weight: 600; text-decoration: none;">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="toast.js"></script>
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="partner-signup.js"></script>
+    <script>
+        // Use theme.js logic if available
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+    </script>
+</body>
+</html>

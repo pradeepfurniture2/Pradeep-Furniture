@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="portfolio.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      ☰
+    </div>
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+
+    </a>
+
+    <!-- LINKS -->
+    <nav>
+      <ul class="nav-links">
+
+        <li><a href="index.html">Home</a></li>
+
+        <!-- DROPDOWN (GLOBAL FURNITURE) -->
+        <li class="dropdown">
+          <a href="#">Furniture Categories</a>
+
+          <ul class="menu level-1">
+            <!-- Sector 1: Home Furniture -->
+            <li>
+              <a href="#">Home Furniture</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Living Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Sofas & Seating</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Luxury Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sectional Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sofa cum Beds</a></li>
+                        <li><a href="category.html?type=sofas">Recliners</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Tables & TV Units</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Coffee Tables</a></li>
+                        <li><a href="category.html?type=sofas">TV Media Units</a></li>
+                        <li><a href="category.html?type=sofas">Center Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bedroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Beds</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=beds">King Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Queen Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Single & Bunk Beds</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=storage">Wardrobes</a></li>
+                        <li><a href="category.html?type=storage">Almiraahs</a></li>
+                        <li><a href="category.html?type=storage">Dressing Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Dining Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Dining Sets</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=dining">4-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">6-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">8-Seater Sets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bathroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Vanities & Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=bathroom">Wall Vanities</a></li>
+                        <li><a href="category.html?type=bathroom">Mirror Cabinets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 2: Office & Reception -->
+            <li>
+              <a href="#">Office & Reception</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Office Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=office">Executive Desks</a></li>
+                    <li><a href="category.html?type=office">Ergonomic Chairs</a></li>
+                    <li><a href="category.html?type=office">Workstations</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Reception Area</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=reception">Reception Desks</a></li>
+                    <li><a href="category.html?type=reception">Waiting Chairs</a></li>
+                    <li><a href="category.html?type=reception">Lounge Seating</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 3: Institutional -->
+            <li>
+              <a href="#">Institutional</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">School Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=school">Student Desks</a></li>
+                    <li><a href="category.html?type=school">Classroom Benches</a></li>
+                    <li><a href="category.html?type=school">Study Tables</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">College/University</a>
+                  <ul class="menu level-2">
+                    <li><a href="category.html?type=school">Auditorium Chairs</a></li>
+                    <li><a href="category.html?type=school">Lab Tables</a></li>
+                    <li><a href="category.html?type=school">Seminar Desks</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 4: Outdoor -->
+            <li>
+              <a href="#">Outdoor</a>
+              <ul class="menu level-2">
+                <li><a href="category.html?type=outdoor">Garden Benches</a></li>
+                <li><a href="category.html?type=outdoor">Outdoor Swings</a></li>
+                <li><a href="category.html?type=outdoor">Patio Sets</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+
+        <li><a href="custom-order.html" target="_blank">Custom Order</a></li>
+        <li><a href="track.html">Track Order</a></li>
+        <li><a href="portfolio.html" class="active">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+      <div class="nav-icon">
+        <a href="wishlist.html">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <span id="wishlist-count">0</span>
+      </div>
+
+      <div class="nav-icon cart-icon">
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <span id="cart-count">0</span>
+      </div>
+
+      <a href="login.html">
+        <button class="auth-btn">
+          Login <span>/</span> Signup
+        </button>
+      </a>
+      <span id="user-name" style="margin-left:10px;"></span>
+
+      <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Mode">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+    </div>
+  </header>
+    <section class="portfolio">
+
+      <div class="wishlist-header featured-header" style="margin-top: 20px;">
+        <h2 class="tilt-text">Our Portfolio</h2>
+        <p>Explore Our Custom Furniture Creations</p>
+      </div>
+
+      <!-- FILTER -->
+      <div class="filters">
+        <button class="active" data-filter="all">All</button>
+        <button data-filter="living">Living Spaces</button>
+        <button data-filter="dining">Dining Areas</button>
+        <button data-filter="bedroom">Bedroom</button>
+        <button data-filter="workspace">Workspaces</button>
+      </div>
+
+      <!-- MASONRY GRID -->
+      <div class="portfolio-grid">
+
+        <div class="portfolio-card large" data-category="living" data-title="Modern Leather Sectional"
+          style="background-image:url('images/modern_leather_sofa_1775107934552.png')">
+          <div class="overlay">
+            <h3>Modern Leather Sectional</h3>
+            <p>Living Spaces</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card tall" data-category="dining" data-title="Rustic Timber Dining Set"
+          style="background-image:url('images/rustic_timber_dining_1775107955632.png')">
+          <div class="overlay">
+            <h3>Rustic Timber Dining Set</h3>
+            <p>Dining Areas</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card wide" data-category="bedroom" data-title="Minimalist Floating Bed"
+          style="background-image:url('images/minimalist_floating_bed_1775107978480.png')">
+          <div class="overlay">
+            <h3>Minimalist Floating Bed</h3>
+            <p>Bedroom</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card tall" data-category="workspace" data-title="Ergonomic Walnut Desk"
+          style="background-image:url('images/ergonomic_workspace_1775108000781.png')">
+          <div class="overlay">
+            <h3>Ergonomic Walnut Desk</h3>
+            <p>Workspaces</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card" data-category="living" data-title="Velvet Mid-Century Sofa"
+          style="background-image:url('images/slide1.jpg')">
+          <div class="overlay">
+            <h3>Velvet Mid-Century Sofa</h3>
+            <p>Living Spaces</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card" data-category="dining" data-title="Marble Pedestal Table"
+          style="background-image:url('images/slide2.jpg')">
+          <div class="overlay">
+            <h3>Marble Pedestal Table</h3>
+            <p>Dining Areas</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card" data-category="bedroom" data-title="Oak Platform Bed"
+          style="background-image:url('images/slide3.jpg')">
+          <div class="overlay">
+            <h3>Oak Platform Bed</h3>
+            <p>Bedroom</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card" data-category="workspace" data-title="Accent Lounge Chair"
+          style="background-image:url('images/chair.jpg')">
+          <div class="overlay">
+            <h3>Accent Lounge Chair</h3>
+            <p>Living & Workspaces</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- POPUP MODAL -->
+    <div class="modal" id="imageModal">
+      <div class="modal-backdrop" onclick="closeModal()"></div>
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div class="modal-content-wrap">
+        <img class="modal-content" id="modalImg">
+        <div class="modal-info">
+          <h3 id="modalTitle">Featured Project</h3>
+          <p id="modalCategory">Custom Furniture</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const buttons = document.querySelectorAll(".filters button");
+      const cards = document.querySelectorAll(".portfolio-card");
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          buttons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          let filter = btn.getAttribute("data-filter");
+
+          cards.forEach(card => {
+            let category = card.getAttribute("data-category");
+
+            if (filter === "all" || category === filter) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("modalImg");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalCategory = document.getElementById("modalCategory");
+
+      cards.forEach(card => {
+        card.addEventListener("click", () => {
+          let bg = card.style.backgroundImage;
+          let imgUrl = bg.slice(5, -2); // Parse background-image URL
+
+          // Handle double quotes inside url()
+          if (imgUrl.startsWith('"') && imgUrl.endsWith('"')) {
+            imgUrl = imgUrl.slice(1, -1);
+          }
+
+          let title = card.getAttribute("data-title");
+          let category = card.getAttribute("data-category");
+
+          modal.style.display = "flex";
+          modalImg.src = imgUrl;
+          modalTitle.innerText = title;
+          modalCategory.innerText = category.toUpperCase();
+        });
+      });
+
+      function closeModal() {
+        modal.style.display = "none";
+      }
+
+      // allow ESC key to close modal
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+    </script>
+    </script>
+    <script src="theme.js"></script>
+  </body>
+</html>
+    <script src="theme.js"></script>
+  </body>
+
+</html>

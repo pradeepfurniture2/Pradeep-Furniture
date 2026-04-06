@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Gateway | Elite Furniture</title>
+
+  <link rel="stylesheet" href="payment.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+    </a>
+    <div class="nav-right">
+      <span id="user-name"></span>
+      <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-moon"></i></button>
+    </div>
+  </header>
+
+  <div class="payment-page">
+
+    <div class="payment-container">
+
+      <!-- LEFT: METHODS -->
+      <div class="payment-methods glass-card">
+        <h3><i class="fa-solid fa-shield-halved"></i> Choose Payment Method</h3>
+
+        <div class="method-tabs">
+          <button class="method-tab active" onclick="switchMethod('upi')">
+            <i class="fa-solid fa-qrcode"></i> UPI
+          </button>
+          <button class="method-tab" onclick="switchMethod('card')">
+            <i class="fa-solid fa-credit-card"></i> Card
+          </button>
+          <button class="method-tab" onclick="switchMethod('net')">
+            <i class="fa-solid fa-building-columns"></i> Net Banking
+          </button>
+          <button class="method-tab" onclick="switchMethod('cod')">
+            <i class="fa-solid fa-hand-holding-dollar"></i> COD
+          </button>
+        </div>
+
+        <div class="method-content">
+          <!-- UPI SECTION -->
+          <div id="method-upi" class="tab-pane active">
+            <div class="qr-container">
+              <p>Scan QR code with GPay, PhonePe, or Paytm</p>
+              <div class="qr-box">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=shubham@okaxis" alt="QR Code">
+                <div class="qr-logo"><img src="images/logo.png"></div>
+              </div>
+              <p class="upi-id">UPI ID: <span>shubham@okaxis</span> <i class="fa-regular fa-copy"></i></p>
+            </div>
+          </div>
+
+          <!-- CARD SECTION -->
+          <div id="method-card" class="tab-pane">
+            <div class="card-form">
+              <div class="form-group">
+                <input type="text" placeholder="Card Holder Name" id="cardName">
+              </div>
+              <div class="form-group">
+                <input type="text" placeholder="Card Number" id="cardNum" maxlength="19">
+              </div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <input type="text" placeholder="MM/YY" id="cardExpiry" maxlength="5">
+                </div>
+                <div class="form-group">
+                  <input type="password" placeholder="CVV" id="cardCvv" maxlength="3">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- NET BANKING SECTION -->
+          <div id="method-net" class="tab-pane">
+            <div class="bank-grid">
+              <div class="bank-item"><i class="fa-solid fa-university"></i> SBI</div>
+              <div class="bank-item"><i class="fa-solid fa-university"></i> HDFC</div>
+              <div class="bank-item"><i class="fa-solid fa-university"></i> ICICI</div>
+              <div class="bank-item"><i class="fa-solid fa-university"></i> AXIS</div>
+            </div>
+          </div>
+
+          <!-- COD SECTION -->
+          <div id="method-cod" class="tab-pane">
+              <div class="cod-info">
+                  <i class="fa-solid fa-truck-moving"></i>
+                  <p>Cash on Delivery is available for your location. You can pay at the time of delivery.</p>
+              </div>
+          </div>
+        </div>
+
+        <button class="pay-btn" id="final-pay-btn" onclick="completePayment()">
+          Complete Order Payment <i class="fa-solid fa-lock"></i>
+        </button>
+
+        <div class="trust-footer">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" height="15">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" height="12">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" height="18">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Norton_Secured_Logo.svg" height="15">
+        </div>
+      </div>
+
+      <!-- RIGHT: ORDER SUMMARY -->
+      <div class="payment-summary glass-card">
+        <h3>Order #<span id="dispOrderId">...</span></h3>
+        <div id="summary-loader" class="loader-box">
+            <div class="spinner"></div>
+            <p>Fetching Order Details...</p>
+        </div>
+        <div id="summary-content" style="display:none;">
+            <p class="customer-info" id="custName">Customer Name</p>
+            <p class="customer-info" id="custAddr" style="font-size: 12px; opacity: 0.7;">Address...</p>
+            <hr>
+            <div class="receipt-item">
+              <span>Subtotal</span>
+              <span id="subTotal">₹0</span>
+            </div>
+            <div class="receipt-item">
+              <span>Shipping Charge</span>
+              <span id="shipTotal">₹0</span>
+            </div>
+            <div class="receipt-item">
+              <span>GST (18%)</span>
+              <span id="gstTotal">₹0</span>
+            </div>
+            <div class="receipt-item">
+              <span>CGST (9%)</span>
+              <span id="cgstTotal">₹0</span>
+            </div>
+            <div class="receipt-item">
+              <span>SGST (9%)</span>
+              <span id="sgstTotal">₹0</span>
+            </div>
+            <div class="receipt-divider"></div>
+            <div class="receipt-total">
+              <span>Amount to Pay</span>
+              <span class="total-value" id="finalTotal">₹0</span>
+            </div>
+            
+            <div class="timer">
+                <i class="fa-regular fa-clock"></i> <span>Session Expires in:</span> <strong id="timer">14:59</strong>
+            </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SUCCESS OVERLAY -->
+  <div id="success-overlay" class="overlay">
+      <div class="success-card glass-card">
+          <div class="checkmark-circle">
+              <div class="checkmark"></div>
+          </div>
+          <h2>Payment Successful!</h2>
+          <p>Your order has been verified and placed.</p>
+          <p class="order-id-p">Order ID: <span id="finalId">#8A2F1B92</span></p>
+          <button class="done-btn" onclick="goToDashboard()">Go to Dashboard</button>
+      </div>
+  </div>
+
+  <script type="module">
+    import { db } from "./firebase.js";
+    import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get('orderId');
+
+    if (!orderId) {
+        window.location.href = "index.html";
+    }
+
+    /* ================= FETCH ORDER ================= */
+    async function loadOrder() {
+        try {
+            const docRef = doc(db, "custom_orders", orderId);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                document.getElementById("dispOrderId").innerText = orderId.substring(0,8).toUpperCase();
+                document.getElementById("custName").innerText = data.customer.name;
+                document.getElementById("custAddr").innerText = `${data.customer.city}, ${data.customer.state}`;
+                document.getElementById("subTotal").innerText = "₹" + data.summary.subtotal.toLocaleString();
+                document.getElementById("shipTotal").innerText = "₹" + data.summary.shipping.toLocaleString();
+                document.getElementById("gstTotal").innerText = "₹" + Math.round(data.summary.subtotal * 0.18).toLocaleString();
+                document.getElementById("cgstTotal").innerText = "₹" + Math.round(data.summary.subtotal * 0.09).toLocaleString();
+                document.getElementById("sgstTotal").innerText = "₹" + Math.round(data.summary.subtotal * 0.09).toLocaleString();
+                document.getElementById("finalTotal").innerText = "₹" + data.summary.total.toLocaleString();
+                document.getElementById("finalId").innerText = "#" + orderId.substring(0,8).toUpperCase();
+
+                document.getElementById("summary-loader").style.display = "none";
+                document.getElementById("summary-content").style.display = "block";
+            }
+        } catch (error) {
+            console.error("Error fetching order:", error);
+        }
+    }
+
+    /* ================= COMPLETE PAYMENT ================= */
+    window.completePayment = async function() {
+        const btn = document.getElementById("final-pay-btn");
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing Securely...`;
+        btn.disabled = true;
+
+        // Simulate Bank Latency
+        setTimeout(async () => {
+            try {
+                const docRef = doc(db, "custom_orders", orderId);
+                await updateDoc(docRef, {
+                    paymentStatus: "Paid",
+                    paymentMethod: activeMethod,
+                    status: "Confirmed", // Move to next step automatically
+                    updatedAt: new Date().toISOString()
+                });
+
+                document.getElementById("success-overlay").classList.add("active");
+            } catch (err) {
+                console.error("Payment update failed:", err);
+                alert("Payment failed! Please try again.");
+                btn.innerHTML = `Complete Order Payment <i class="fa-solid fa-lock"></i>`;
+                btn.disabled = false;
+            }
+        }, 2000);
+    }
+
+    loadOrder();
+  </script>
+
+  <script>
+    let activeMethod = 'upi';
+
+    function switchMethod(method) {
+      activeMethod = method;
+      document.querySelectorAll('.method-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      
+      event.target.classList.add('active');
+      document.getElementById('method-' + method).classList.add('active');
+
+      const payBtn = document.getElementById("final-pay-btn");
+      if(method === 'cod') {
+          payBtn.innerText = "Confirm COD Order ✔️";
+      } else {
+          payBtn.innerText = "Complete Order Payment 🔒";
+      }
+    }
+
+    function goToDashboard() {
+        window.location.href = "dashboard.html";
+    }
+
+    // Timer Logic
+    let minutes = 14;
+    let seconds = 59;
+    const timerEl = document.getElementById('timer');
+
+    setInterval(() => {
+        seconds--;
+        if (seconds < 0) {
+            seconds = 59;
+            minutes--;
+        }
+        if (minutes < 0) return;
+        timerEl.innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }, 1000);
+  </script>
+  <script src="theme.js"></script>
+</body>
+</html>

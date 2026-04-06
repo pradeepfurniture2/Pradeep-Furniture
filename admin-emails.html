@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Collected Emails</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <style>
+    body { padding-top: 120px; text-align: center; }
+    table { width: 80%; max-width: 900px; margin: 40px auto; border-collapse: collapse; background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    th, td { padding: 18px 25px; border-bottom: 1px solid var(--border-color); text-align: left; }
+    th { background: var(--secondary-bg); font-weight: 600; color: var(--accent-color); font-size: 16px; }
+    td { font-size: 15px; color: var(--text-color); }
+    .no-data { padding: 50px; font-size: 18px; color: var(--text-secondary); background: var(--card-bg); width: 80%; max-width: 900px; margin: 40px auto; border-radius: 12px; }
+    .clear-btn { background: transparent; color: #ea4335; border: 1px solid #ea4335; padding: 12px 25px; border-radius: 30px; cursor: pointer; font-family: 'Outfit'; font-weight: 600; transition: all 0.3s; margin-top: 20px;}
+    .clear-btn:hover { background: #ea4335; color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">← Back to Main Website</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <h2 style="font-family: 'Playfair Display'; font-size: 38px; margin-bottom: 5px; color: var(--text-primary)">Admin Dashboard</h2>
+  <p style="color: var(--text-secondary); margin-bottom: 40px;">Local Database Overview</p>
+
+  <h3 style="font-size: 24px; margin-bottom: 20px; color: var(--text-primary); text-align: left; width: 80%; max-width: 900px; margin: 0 auto;">✉️ Contact Form Submissions</h3>
+  <div id="contact-container">
+    <!-- Contact messages will load here -->
+  </div>
+
+  <h3 style="font-size: 24px; margin: 50px auto 20px; color: var(--text-primary); text-align: left; width: 80%; max-width: 900px;">📫 Newsletter Subscriptions</h3>
+  <div id="email-container">
+    <!-- Newsletter Emails will load here dynamically -->
+  </div>
+
+  <button class="clear-btn" onclick="clearAllData()">Delete All Database Records</button>
+
+  <script>
+    function loadData() {
+      // 1. Load Newsletter
+      const emailContainer = document.getElementById("email-container");
+      let emails = JSON.parse(localStorage.getItem("newsletter_emails")) || [];
+
+      if (emails.length === 0) {
+        emailContainer.innerHTML = `<div class="no-data"><i class="fa-solid fa-inbox" style="font-size: 40px; margin-bottom: 15px; color: var(--border-color)"></i><br>No newsletter subscribers found.</div>`;
+      } else {
+        let eHtml = `<table><tr><th style="width: 10%">#</th><th style="width: 50%">Email Address</th><th style="width: 40%">Date Subscribed</th></tr>`;
+        emails.reverse().forEach((item, index) => {
+          eHtml += `<tr><td style="color: var(--text-secondary)">${index + 1}</td><td><strong>${item.email}</strong></td><td>${item.date}</td></tr>`;
+        });
+        eHtml += `</table>`;
+        emailContainer.innerHTML = eHtml;
+      }
+
+      // 2. Load Contact Messages
+      const contactContainer = document.getElementById("contact-container");
+      let messages = JSON.parse(localStorage.getItem("contact_messages")) || [];
+
+      if (messages.length === 0) {
+        contactContainer.innerHTML = `<div class="no-data"><i class="fa-solid fa-file-signature" style="font-size: 40px; margin-bottom: 15px; color: var(--border-color)"></i><br>No contact messages found.</div>`;
+      } else {
+        let cHtml = `<table><tr><th style="width: 5%">#</th><th style="width: 15%">Name</th><th style="width: 20%">Contact</th><th style="width: 20%">Subject</th><th style="width: 40%">Message</th></tr>`;
+        messages.reverse().forEach((item, index) => {
+          cHtml += `<tr>
+                      <td style="color: var(--text-secondary)">${index + 1}</td>
+                      <td><strong>${item.name}</strong><br><small style="color: var(--text-secondary)">${item.date}</small></td>
+                      <td>${item.email}<br>${item.phone}</td>
+                      <td>${item.subject}</td>
+                      <td style="font-size: 13px;">${item.message}</td>
+                    </tr>`;
+        });
+        cHtml += `</table>`;
+        contactContainer.innerHTML = cHtml;
+      }
+    }
+
+    function clearAllData() {
+      if(confirm("Are you sure you want to permanently delete ALL emails and contact messages?")) {
+        localStorage.removeItem("newsletter_emails");
+        localStorage.removeItem("contact_messages");
+        loadData();
+      }
+    }
+
+    // Initialize list
+    loadData();
+  </script>
+</body>
+</html>

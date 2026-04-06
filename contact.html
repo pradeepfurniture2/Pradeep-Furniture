@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us - Pradeep Furniture</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="contact.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      ☰
+    </div>
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+
+    </a>
+
+    <!-- LINKS -->
+    <nav>
+      <ul class="nav-links">
+
+        <li><a href="index.html">Home</a></li>
+
+        <!-- DROPDOWN (GLOBAL FURNITURE) -->
+        <li class="dropdown">
+          <a href="#">Furniture Categories</a>
+
+          <ul class="menu level-1">
+            <!-- Sector 1: Home Furniture -->
+            <li>
+              <a href="#">Home Furniture</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Living Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Sofas & Seating</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Luxury Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sectional Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sofa cum Beds</a></li>
+                        <li><a href="category.html?type=sofas">Recliners</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Tables & TV Units</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Coffee Tables</a></li>
+                        <li><a href="category.html?type=sofas">TV Media Units</a></li>
+                        <li><a href="category.html?type=sofas">Center Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bedroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Beds</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=beds">King Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Queen Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Single & Bunk Beds</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=storage">Wardrobes</a></li>
+                        <li><a href="category.html?type=storage">Almiraahs</a></li>
+                        <li><a href="category.html?type=storage">Dressing Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Dining Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Dining Sets</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=dining">4-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">6-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">8-Seater Sets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bathroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Vanities & Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=bathroom">Wall Vanities</a></li>
+                        <li><a href="category.html?type=bathroom">Mirror Cabinets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 2: Office & Reception -->
+            <li>
+              <a href="#">Office & Reception</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Office Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=office">Executive Desks</a></li>
+                    <li><a href="category.html?type=office">Ergonomic Chairs</a></li>
+                    <li><a href="category.html?type=office">Workstations</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Reception Area</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=reception">Reception Desks</a></li>
+                    <li><a href="category.html?type=reception">Waiting Chairs</a></li>
+                    <li><a href="category.html?type=reception">Lounge Seating</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 3: Institutional -->
+            <li>
+              <a href="#">Institutional</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">School Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=school">Student Desks</a></li>
+                    <li><a href="category.html?type=school">Classroom Benches</a></li>
+                    <li><a href="category.html?type=school">Study Tables</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">College/University</a>
+                  <ul class="menu level-2">
+                    <li><a href="category.html?type=school">Auditorium Chairs</a></li>
+                    <li><a href="category.html?type=school">Lab Tables</a></li>
+                    <li><a href="category.html?type=school">Seminar Desks</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 4: Outdoor -->
+            <li>
+              <a href="#">Outdoor</a>
+              <ul class="menu level-2">
+                <li><a href="category.html?type=outdoor">Garden Benches</a></li>
+                <li><a href="category.html?type=outdoor">Outdoor Swings</a></li>
+                <li><a href="category.html?type=outdoor">Patio Sets</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+
+        <li><a href="custom-order.html" target="_blank">Custom Order</a></li>
+        <li><a href="track.html">Track Order</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+      <div class="nav-icon">
+        <a href="wishlist.html">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <span id="wishlist-count">0</span>
+      </div>
+
+      <div class="nav-icon cart-icon">
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <span id="cart-count">0</span>
+      </div>
+
+      <a href="login.html">
+        <button class="auth-btn">
+          Login <span>/</span> Signup
+        </button>
+      </a>
+      <span id="user-name" style="margin-left:10px;"></span>
+
+      <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Mode">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+    </div>
+  </header>
+
+    <!-- CONTACT HERO -->
+    <section class="contact-hero">
+      <h1>Let's Craft Your Dream Space</h1>
+      <p>Whether you have a question about our custom collections, need a material consultation, or are ready to order,
+        our design team is entirely at your service.</p>
+    </section>
+
+    <!-- CONTACT CONTAINER -->
+    <section class="contact-container">
+
+      <!-- LEFT: INFO -->
+      <div class="contact-info">
+
+        <div class="info-item">
+          <div class="icon">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <div>
+            <h3>Our Studio</h3>
+            <p>34/48-B, Nagla Latoori Singh Deori road Agra 282001</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <div>
+            <h3>Direct Line</h3>
+            <p>+91 844 555 3853<br>Available Mon-Fri, 9am - 7pm</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div>
+            <h3>Email Us</h3>
+            <p>Pradeepfurniture2@gmail.com</p>
+          </div>
+        </div>
+
+        <!-- Add aesthetic image as a filler for the left block -->
+        <img src="images/modern_leather_sofa_1775107934552.png" alt="Furniture Design Studio"
+          style="margin-top: 30px; border-radius: 12px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+      </div>
+
+      <!-- RIGHT: FORM -->
+      <div class="contact-form-wrapper">
+        <h2>Send a Message</h2>
+        <form id="contact-form">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="contact-fname" placeholder="John" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="contact-lname" placeholder="Doe" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="contact-email" placeholder="john@example.com" required>
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="contact-phone" placeholder="+91 00000 00000">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Subject</label>
+            <input type="text" id="contact-subject" placeholder="Custom Order Inquiry" required>
+          </div>
+
+          <div class="form-group">
+            <label>Your Message / Project Details</label>
+            <textarea id="contact-message" placeholder="Tell us about the space you want to transform..."
+              required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            Send Message <i class="fa-solid fa-paper-plane"></i>
+          </button>
+
+        </form>
+      </div>
+
+    </section>
+
+    <!-- MAP SECTION -->
+    <section class="map-section" id="animated-map-section">
+      <h2>Visit Our Studio</h2>
+      <div class="map-wrapper" id="contact-map-wrapper">
+        <button class="map-expand-btn" onclick="toggleFullScreen('contact-map-wrapper')" title="Expand Map">
+          <i class="fa-solid fa-expand"></i>
+        </button>
+        <iframe
+          src="https://www.google.com/maps?q=Pradeep%20Furniture%20Agra%2034/48-B,%20Nagla%20Latoori%20Singh%20Deori%20road&output=embed"
+          width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+      <div class="footer-container">
+
+        <!-- Brand -->
+        <div class="footer-col">
+          <h3>Custom Furniture</h3>
+          <p>Crafting bespoke, premium furniture tailored to your beautiful living spaces. Quality materials, exquisite
+            design.</p>
+        </div>
+
+        <!-- Links -->
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="custom-order.html">Custom Order</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="track.html">Track Order</a></li>
+          </ul>
+        </div>
+
+        <!-- Customer Support -->
+        <div class="footer-col">
+          <h3>Customer Support</h3>
+          <ul>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="footer-col">
+          <h3>Newsletter</h3>
+          <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+          <form class="newsletter-form" id="newsletter-form">
+            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+            <button type="submit">Join</button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 Custom Furniture. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="theme.js"></script>
+    <script>
+      function updateCountsLive() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let wList = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+        let cartTotal = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
+        let cartEl = document.getElementById("cart-count");
+        if (cartEl) cartEl.innerText = cartTotal;
+
+        let wishEl = document.getElementById("wishlist-count");
+        if (wishEl) wishEl.innerText = wList.length;
+      }
+
+      /* 🔥 INITIAL */
+      updateCountsLive();
+      window.addEventListener("cartUpdated", updateCountsLive);
+      window.addEventListener("wishlistUpdated", updateCountsLive);
+
+      function toggleMenu() {
+        document.querySelector(".nav-links").classList.toggle("active");
+      }
+
+      /* 🔥 NEWSLETTER SCRIPT */
+      document.getElementById("newsletter-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const email = document.getElementById("newsletter-email").value;
+        let emails = JSON.parse(localStorage.getItem("newsletter_emails")) || [];
+        emails.push({ email: email, date: new Date().toLocaleString() });
+        localStorage.setItem("newsletter_emails", JSON.stringify(emails));
+        alert("Perfect! Your email has been successfully saved to the local database.");
+        this.reset();
+      });
+
+      /* 🔥 CONTACT FORM SCRIPT */
+      document.getElementById("contact-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const payload = {
+          name: document.getElementById("contact-fname").value + " " + document.getElementById("contact-lname").value,
+          email: document.getElementById("contact-email").value,
+          phone: document.getElementById("contact-phone").value,
+          subject: document.getElementById("contact-subject").value,
+          message: document.getElementById("contact-message").value,
+          date: new Date().toLocaleString()
+        };
+
+        let messages = JSON.parse(localStorage.getItem("contact_messages")) || [];
+        messages.push(payload);
+        localStorage.setItem("contact_messages", JSON.stringify(messages));
+
+        alert("Your message has been safely saved to the Local Database! Our team will get back to you shortly.");
+        this.reset();
+      });
+    </script>
+
+    <!-- 📞 SUPPORT WIDGET -->
+    <div class="support-widget">
+      <div class="support-options">
+        <a href="https://wa.me/+918445553853" target="_blank" class="support-btn whatsapp" title="WhatsApp"><i
+            class="fa-brands fa-whatsapp"></i></a>
+        <a href="tel:+918445553853" class="support-btn phone" title="Call Us"><i class="fa-solid fa-phone"></i></a>
+        <a href="mailto:Pradeepfurniture2@gmail.com" class="support-btn email" title="Email Us"><i
+            class="fa-solid fa-envelope"></i></a>
+      </div>
+      <div class="support-toggle" onclick="toggleSupport()">
+        <i class="fa-solid fa-headset"></i>
+      </div>
+    </div>
+
+    <script>
+      function toggleSupport() {
+        document.querySelector('.support-options').classList.toggle('active');
+      }
+
+      /* 🔥 MAP RESIZE & SCROLL SCRIPT */
+      function scrollToLargeMap() {
+        const largeMap = document.getElementById('animated-map-section');
+        largeMap.scrollIntoView({ behavior: 'smooth' });
+        largeMap.classList.add('reveal');
+      }
+
+      function toggleFullScreen(wrapperId) {
+        const wrapper = document.getElementById(wrapperId);
+        const btn = wrapper.querySelector('.map-expand-btn i');
+        wrapper.classList.toggle('full-screen');
+
+        if (wrapper.classList.contains('full-screen')) {
+          btn.classList.replace('fa-expand', 'fa-compress');
+          document.body.style.overflow = 'hidden';
+        } else {
+          btn.classList.replace('fa-compress', 'fa-expand');
+          document.body.style.overflow = 'auto';
+        }
+      }
+
+      /* 🔥 SCROLL REVEAL SCRIPT */
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      const mapSection = document.getElementById('animated-map-section');
+      if (mapSection) observer.observe(mapSection);
+    </script>
+  </body>
+
+</html>

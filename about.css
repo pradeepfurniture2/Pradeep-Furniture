@@ -1,0 +1,227 @@
+/* ================= ABOUT PAGE STYLES ================= */
+
+/* HERO SECTION */
+.about-hero {
+  padding: 160px 10% 100px;
+  background: var(--navbar-bg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.about-hero::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(circle, rgba(200, 155, 60, 0.05) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.about-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.about-hero p {
+  font-size: 20px;
+  color: var(--text-secondary);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* STORY SECTION */
+.about-story {
+  padding: 100px 10%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.story-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  color: var(--text-primary);
+  margin-bottom: 30px;
+}
+
+.story-content p {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.story-image {
+  position: relative;
+}
+
+.story-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.story-image::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: -20px;
+  bottom: -20px;
+  border: 2px solid var(--accent-color);
+  border-radius: 20px;
+  z-index: -1;
+}
+
+/* VALUES SECTION */
+.about-values {
+  padding: 100px 10%;
+  background: var(--secondary-bg);
+  text-align: center;
+}
+
+.about-values h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  color: var(--text-primary);
+  margin-bottom: 60px;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.value-card {
+  background: var(--card-bg);
+  padding: 50px 40px;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.value-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.value-card i {
+  font-size: 48px;
+  color: var(--accent-color);
+  margin-bottom: 25px;
+}
+
+.value-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: var(--text-primary);
+  margin-bottom: 15px;
+}
+
+.value-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* STATS SECTION */
+.about-stats {
+  padding: 80px 10%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 60px;
+  text-align: center;
+}
+
+.stat-item h3 {
+  font-size: 48px;
+  color: var(--accent-color);
+  margin-bottom: 10px;
+}
+
+.stat-item p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 992px) {
+  .about-hero {
+    padding: 120px 5% 60px;
+  }
+  .about-hero h1 {
+    font-size: 42px;
+  }
+  .about-hero p {
+    font-size: 18px;
+  }
+  .about-story {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 60px 5%;
+    text-align: center;
+  }
+  .story-content h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  .story-image::after {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 34px;
+  }
+  .about-values {
+    padding: 50px 5%;
+  }
+  .about-values h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+  .values-grid {
+    gap: 25px;
+  }
+  .value-card {
+    padding: 30px 20px;
+  }
+  .about-stats {
+    padding: 40px 5%;
+    gap: 30px;
+  }
+  .stat-item h3 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero h1 {
+    font-size: 28px;
+  }
+  .about-hero p {
+    font-size: 16px;
+  }
+  .story-content h2 {
+    font-size: 26px;
+  }
+  .stat-item h3 {
+    font-size: 28px;
+  }
+}

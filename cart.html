@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cart</title>
+
+  <link rel="stylesheet" href="cart.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      ☰
+    </div>
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+
+    </a>
+
+    <!-- LINKS -->
+    <nav>
+      <ul class="nav-links">
+
+        <li><a href="index.html">Home</a></li>
+
+        <!-- DROPDOWN (GLOBAL FURNITURE) -->
+        <li class="dropdown">
+          <a href="#">Furniture Categories</a>
+
+          <ul class="menu level-1">
+            <!-- Sector 1: Home Furniture -->
+            <li>
+              <a href="#">Home Furniture</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Living Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Sofas & Seating</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Luxury Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sectional Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sofa cum Beds</a></li>
+                        <li><a href="category.html?type=sofas">Recliners</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Tables & TV Units</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Coffee Tables</a></li>
+                        <li><a href="category.html?type=sofas">TV Media Units</a></li>
+                        <li><a href="category.html?type=sofas">Center Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bedroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Beds</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=beds">King Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Queen Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Single & Bunk Beds</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=storage">Wardrobes</a></li>
+                        <li><a href="category.html?type=storage">Almiraahs</a></li>
+                        <li><a href="category.html?type=storage">Dressing Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Dining Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Dining Sets</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=dining">4-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">6-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">8-Seater Sets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bathroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Vanities & Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=bathroom">Wall Vanities</a></li>
+                        <li><a href="category.html?type=bathroom">Mirror Cabinets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 2: Office & Reception -->
+            <li>
+              <a href="#">Office & Reception</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Office Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=office">Executive Desks</a></li>
+                    <li><a href="category.html?type=office">Ergonomic Chairs</a></li>
+                    <li><a href="category.html?type=office">Workstations</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Reception Area</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=reception">Reception Desks</a></li>
+                    <li><a href="category.html?type=reception">Waiting Chairs</a></li>
+                    <li><a href="category.html?type=reception">Lounge Seating</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 3: Institutional -->
+            <li>
+              <a href="#">Institutional</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">School Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=school">Student Desks</a></li>
+                    <li><a href="category.html?type=school">Classroom Benches</a></li>
+                    <li><a href="category.html?type=school">Study Tables</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">College/University</a>
+                  <ul class="menu level-2">
+                    <li><a href="category.html?type=school">Auditorium Chairs</a></li>
+                    <li><a href="category.html?type=school">Lab Tables</a></li>
+                    <li><a href="category.html?type=school">Seminar Desks</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 4: Outdoor -->
+            <li>
+              <a href="#">Outdoor</a>
+              <ul class="menu level-2">
+                <li><a href="category.html?type=outdoor">Garden Benches</a></li>
+                <li><a href="category.html?type=outdoor">Outdoor Swings</a></li>
+                <li><a href="category.html?type=outdoor">Patio Sets</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+
+        <li><a href="custom-order.html" target="_blank">Custom Order</a></li>
+        <li><a href="track.html">Track Order</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+      <div class="nav-icon">
+        <a href="wishlist.html">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <span id="wishlist-count">0</span>
+      </div>
+
+      <div class="nav-icon cart-icon">
+        <a href="cart.html" class="active">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <span id="cart-count">0</span>
+      </div>
+
+      <a href="login.html">
+        <button class="auth-btn">
+          Login <span>/</span> Signup
+        </button>
+      </a>
+      <span id="user-name" style="margin-left:10px;"></span>
+
+      <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Mode">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+    </div>
+  </header>
+  <div class="cart-page">
+
+    <h2>🛒 Your Shopping Cart</h2>
+
+    <div class="cart-container">
+
+      <!-- LEFT SIDE -->
+      <div class="cart-items" id="cart-items"></div>
+
+      <!-- RIGHT SIDE -->
+      <div class="summary">
+
+        <p>Subtotal <span>₹<span id="subtotal" data-value="0">0</span></span></p>
+        <p>Shipping <span style="font-size: 0.8em; color: var(--text-muted);">₹<span id="shipping">0</span></span></p>
+        <p>GST (18%) <span>₹<span id="gst" data-value="0">0</span></span></p>
+        <p>CGST (9%) <span>₹<span id="cgst" data-value="0">0</span></span></p>
+        <p>SGST (9%) <span>₹<span id="sgst" data-value="0">0</span></span></p>
+        <div class="coupon-box">
+          <input type="text" id="couponInput" placeholder="Enter Coupon">
+          <div id="couponBadge" class="coupon-badge"></div>
+
+          <button onclick="applyCoupon()">Apply</button>
+        </div>
+        <p class="view-coupons" onclick="openCouponPopup()">
+          View Available Coupons
+        </p>
+
+        <p class="discount">Discount <span>-₹<span id="discount">0</span></span></p>
+
+
+        <h4>Total <span>₹<span id="total">0</span></span></h4>
+        <div id="savingsBox" style="display:none; color:green; margin-top:8px;"></div>
+
+
+
+        <a href="checkout.html">
+          <button class="checkout">Proceed to Checkout</button>
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="module">
+
+    import { db } from "./firebase.js";
+    import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let discountValue = 0;
+    let coupons = [];
+
+    // 🎫 Fetch Live Coupons
+    async function fetchCoupons() {
+      try {
+        const q = query(collection(db, "coupons"), orderBy("createdAt", "desc"));
+        const snap = await getDocs(q);
+        coupons = snap.docs.map(doc => doc.data());
+        console.log("Coupons loaded from Firestore:", coupons);
+      } catch (err) {
+        console.error("Coupon Fetch Error:", err);
+      }
+    }
+    fetchCoupons();
+
+    /* ================= NUMBER ANIMATION ================= */
+    function animateNumber(id, newValue) {
+
+      let el = document.getElementById(id);
+      let start = parseInt(el.innerText) || 0;
+
+      let duration = 400;
+      let startTime = null;
+
+      function update(currentTime) {
+
+        if (!startTime) startTime = currentTime;
+
+        let progress = currentTime - startTime;
+        let percent = Math.min(progress / duration, 1);
+
+        let value = Math.floor(start + (newValue - start) * percent);
+
+        el.innerText = value;
+
+        if (percent < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    /* ================= CART COUNT ================= */
+    window.changeQty = function (index, change) {
+      cart[index].qty += change;
+
+      if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      renderCart();
+      updateCartCount();   // 🔥 ADD THIS LINE
+    }
+    /* ================= RENDER CART ================= */
+    function renderCart() {
+
+      const container = document.getElementById("cart-items");
+      container.innerHTML = "";
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="empty-cart-card">
+            <div class="empty-icon">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+            <h2>Your Cart is Empty</h2>
+            <p>Looks like you haven't added any premium furniture to your cart yet.</p>
+            <a href="index.html#collections" class="explore-btn">Explore Collections</a>
+          </div>
+        `;
+        // Hide summary if cart is empty
+        const summary = document.querySelector(".summary");
+        if (summary) summary.style.display = "none";
+        
+        // Adjust container for full width empty state
+        const cartContainer = document.querySelector(".cart-container");
+        if (cartContainer) cartContainer.style.display = "block";
+
+        updateTotal();
+        return;
+      }
+
+      // Show summary if items exist
+      const summary = document.querySelector(".summary");
+      if (summary) summary.style.display = "block";
+      const cartContainer = document.querySelector(".cart-container");
+      if (cartContainer) cartContainer.style.display = "flex";
+
+      cart.forEach((item, index) => {
+
+        container.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.image}">
+
+        <div class="details">
+          <h4>${item.name}</h4>
+          <p>₹${item.price}</p>
+        </div>
+
+        <div class="qty">
+          <button onclick="changeQty(${index}, -1)">-</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty(${index}, 1)">+</button>
+        </div>
+
+        <div class="price">₹${item.price * item.qty}</div>
+
+        <button class="remove" onclick="removeItem(${index})">
+          Remove
+        </button>
+      </div>
+    `;
+      });
+
+      updateTotal();
+    }
+
+    /* ================= QTY ================= */
+    window.changeQty = function (index, change) {
+      cart[index].qty += change;
+
+      if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+      updateCartCount();
+    }
+
+    /* ================= REMOVE ================= */
+    window.removeItem = function (index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      renderCart();
+      updateCartCount();   // 🔥 ADD THIS LINE
+    }
+    /* ================= TOTAL ================= */
+    window.updateTotal = function() {
+      let subtotal = 0;
+      cart.forEach(item => subtotal += item.price * item.qty);
+
+      let shipping = 0;
+      
+      let gst = Math.round(subtotal * 0.18);
+      let cgst = Math.round(subtotal * 0.09);
+      let sgst = Math.round(subtotal * 0.09);
+      let total = subtotal + shipping + gst - discountValue;
+
+      animateNumber("subtotal", subtotal);
+      animateNumber("shipping", shipping);
+      animateNumber("gst", gst);
+      animateNumber("cgst", cgst);
+      animateNumber("sgst", sgst);
+      animateNumber("discount", discountValue);
+
+      animateNumber("total", total);
+
+      /* 🔥 SAVINGS FIX */
+      let savingsBox = document.getElementById("savingsBox");
+
+      if (savingsBox) {   // ✅ safety check
+
+        if (discountValue > 0) {
+          savingsBox.innerText = `🎉 You saved ₹${discountValue}`;
+          savingsBox.style.display = "block";   // 🔥 force show
+        } else {
+          savingsBox.innerText = "";
+          savingsBox.style.display = "none";    // 🔥 force hide
+        }
+
+      }
+    }
+    /* ================= COUPON ================= */
+    window.applyCoupon = function () {
+
+      let code = document.getElementById("couponInput").value.trim().toUpperCase();
+      let badge = document.getElementById("couponBadge");
+
+      let subtotal = 0;
+      cart.forEach(item => subtotal += item.price * item.qty);
+
+      let found = coupons.find(c => c.code === code);
+
+      if (!found) {
+        discountValue = 0;
+        badge.style.display = "none";
+        alert("Invalid Coupon ❌");
+        updateTotal();
+        return;
+      }
+
+      if (found.min && subtotal < found.min) {
+        alert(`Minimum order ₹${found.min} required ❌`);
+        return;
+      }
+
+      if (found.type === "flat") {
+        discountValue = found.value;
+      } else {
+        discountValue = Math.round(subtotal * (found.value / 100));
+      }
+
+      badge.innerHTML = `
+    <span>
+      ${code} Applied
+      <button onclick="removeCoupon()">✖</button>
+    </span>
+  `;
+      badge.style.display = "block";
+
+      updateTotal();
+    }
+
+    /* ================= REMOVE COUPON ================= */
+    window.removeCoupon = function () {
+      discountValue = 0;
+      document.getElementById("couponInput").value = "";
+      document.getElementById("couponBadge").style.display = "none";
+      updateTotal();
+    }
+
+    /* ================= POPUP ================= */
+    window.openCouponPopup = function () {
+      let popup = document.getElementById("couponPopup");
+      popup.style.display = "flex";
+
+      setTimeout(() => {
+        popup.classList.add("show");
+      }, 10);
+
+      renderCoupons();
+    }
+
+    window.closeCouponPopup = function () {
+      let popup = document.getElementById("couponPopup");
+
+      popup.classList.remove("show");
+
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 300);
+    }
+
+    /* ================= RENDER COUPONS ================= */
+    function renderCoupons() {
+
+      let list = document.getElementById("couponList");
+      list.innerHTML = "";
+
+      coupons.forEach(c => {
+
+        let desc = c.type === "flat"
+          ? `Flat ₹${c.value} OFF`
+          : `${c.value}% OFF`;
+
+        let minText = c.min ? `<small>Min Order ₹${c.min}</small>` : "";
+
+        list.innerHTML += `
+      <div class="coupon-item">
+        <div>
+          <strong>${c.code}</strong><br>
+          <small>${desc}</small><br>
+          ${minText}
+        </div>
+
+        <button onclick="applyFromPopup('${c.code}')">Apply</button>
+      </div>
+    `;
+      });
+    }
+
+
+    /* ================= APPLY FROM POPUP ================= */
+    window.applyFromPopup = function (code) {
+      document.getElementById("couponInput").value = code;
+      applyCoupon();
+      closeCouponPopup();
+    }
+
+    /* ================= INIT ================= */
+    renderCart();
+    updateCartCount();
+
+  </script>
+  <script>
+    function fixCartCount() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      let total = 0;
+      cart.forEach(item => {
+        total += item.qty || 0;
+      });
+
+      let el = document.getElementById("cart-count");
+      if (el) el.innerText = total;
+    }
+
+    /* 🔥 FORCE UPDATE EVERY TIME */
+    fixCartCount();
+
+    /* 🔥 जब भी page focus हो */
+    window.addEventListener("focus", fixCartCount);
+  </script>
+  <script>
+    function updateCartCountLive() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      let total = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
+
+      let el = document.getElementById("cart-count");
+      if (el) el.innerText = total;
+    }
+
+    /* 🔥 INITIAL */
+    updateCartCountLive();
+
+    /* 🔥 CUSTOM EVENT LISTENER */
+    window.addEventListener("cartUpdated", updateCartCountLive);
+  </script>
+  <div id="couponPopup" class="coupon-popup">
+    <div class="popup-content">
+      <h3>Available Coupons</h3>
+      <div id="couponList"></div>
+      <button class="close-btn" onclick="closeCouponPopup()">
+        ✖ Close
+      </button>
+    </div>
+  </div>
+  <script src="theme.js"></script>
+</body>
+
+</html>

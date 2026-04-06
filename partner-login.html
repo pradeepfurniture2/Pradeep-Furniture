@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Login | Pradeep Furniture</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="admin-login.css">
+    <link rel="stylesheet" href="toast.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <style>
+        .partner-theme {
+            --accent-color: #c49a6c;
+            --accent-light: rgba(196, 154, 108, 0.1);
+        }
+        .login-container {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+        }
+        .login-btn {
+            background: linear-gradient(135deg, #c49a6c, #a67c3b);
+        }
+    </style>
+</head>
+<body class="partner-theme">
+
+    <div class="login-container">
+        <div class="brand">
+            <img src="images/logo.png" alt="Logo">
+            <h1 style="font-family: 'Playfair Display', serif; letter-spacing: 1px;">Partner Portal</h1>
+            <p>Welcome back, Showroom Owner</p>
+        </div>
+
+        <div class="login-card">
+            <div class="input-group">
+                <label for="partner-email">Partner Email</label>
+                <div class="input-field">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="partner-email" placeholder="showroom@example.com">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="partner-password">Password</label>
+                <div class="input-field">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="partner-password" placeholder="••••••••">
+                </div>
+                <div class="options">
+                    <a href="forgot-password.html">Forgot Password?</a>
+                </div>
+            </div>
+
+            <button class="login-btn" id="partner-login-btn">
+                Partner Login <i class="fa-solid fa-handshake" style="margin-left: 8px;"></i>
+            </button>
+            <div style="margin-top:20px; text-align:center;">
+                <p style="color:#888; font-size:14px;">Not a partner yet? <a href="partner-signup.html" style="color:var(--accent-color); text-decoration:none; font-weight:600;">Apply Now</a></p>
+            </div>
+        </div>
+
+        <!-- 🎉 PARTNER SUCCESS OVERLAY -->
+        <div id="partner-success-overlay" class="success-overlay">
+            <div class="success-content">
+                <div class="crown-icon" style="background: var(--accent-color);">
+                    <i class="fa-solid fa-handshake"></i>
+                </div>
+                <h1 class="glow-text">Welcome, Partner</h1>
+                <p class="owner-name" id="display-partner-name">Accessing Showroom Tools...</p>
+                <div class="loading-bar">
+                    <div class="progress"></div>
+                </div>
+                <p class="status-msg">Syncing your leads and earnings...</p>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Return to Site</a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="toast.js"></script>
+    <script type="module" src="partner-login.js"></script>
+</body>
+</html>

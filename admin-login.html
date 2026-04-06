@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Login | Pradeep Furniture</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="admin-login.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="brand">
+            <img src="images/logo.png" alt="Logo">
+            <h1>Owner Portal</h1>
+            <p>Authorized Access Only</p>
+        </div>
+
+        <div class="login-card">
+            <div class="input-group">
+                <label for="admin-email">Owner Email</label>
+                <div class="input-field">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="admin-email" placeholder="owner@furniture.com">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="admin-password">Secure Password</label>
+                <div class="input-field">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="admin-password" placeholder="••••••••">
+                </div>
+                <div class="options">
+                    <a href="forgot-password.html">Forgot Password?</a>
+                </div>
+            </div>
+
+            <button class="login-btn" id="admin-login-btn">
+                Secure Login <i class="fa-solid fa-shield-halved" style="margin-left: 8px;"></i>
+            </button>
+        </div>
+
+        <!-- 👑 PREMIUM SUCCESS OVERLAY -->
+        <div id="owner-success-overlay" class="success-overlay">
+            <div class="success-content">
+                <div class="crown-icon">
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <h1 class="glow-text">Access Granted</h1>
+                <p class="owner-name">Welcome Back, Chief</p>
+                <div class="loading-bar">
+                    <div class="progress"></div>
+                </div>
+                <p class="status-msg">Initializing Secure Dashboard...</p>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Return to Site</a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="toast.js"></script>
+    <script type="module" src="admin-login.js"></script>
+</body>
+</html>

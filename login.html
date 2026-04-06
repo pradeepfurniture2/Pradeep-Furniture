@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="toast.css">
+  <script src="toast.js"></script>
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <!-- EmailJS Library -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <!-- OTP Verification Logic -->
+  <script src="otp.js"></script>
+</head>
+
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      ☰
+    </div>
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+    </a>
+
+    <!-- LINKS -->
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+
+        <!-- DROPDOWN (GLOBAL FURNITURE) -->
+        <li class="dropdown">
+          <a href="#">Furniture Categories</a>
+
+          <ul class="menu level-1">
+            <!-- Sector 1: Home Furniture -->
+            <li>
+              <a href="#">Home Furniture</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Living Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Sofas & Seating</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Luxury Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sectional Sofas</a></li>
+                        <li><a href="category.html?type=sofas">Sofa cum Beds</a></li>
+                        <li><a href="category.html?type=sofas">Recliners</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Tables & TV Units</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=sofas">Coffee Tables</a></li>
+                        <li><a href="category.html?type=sofas">TV Media Units</a></li>
+                        <li><a href="category.html?type=sofas">Center Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bedroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Beds</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=beds">King Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Queen Size Beds</a></li>
+                        <li><a href="category.html?type=beds">Single & Bunk Beds</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=storage">Wardrobes</a></li>
+                        <li><a href="category.html?type=storage">Almiraahs</a></li>
+                        <li><a href="category.html?type=storage">Dressing Tables</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Dining Room</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Dining Sets</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=dining">4-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">6-Seater Sets</a></li>
+                        <li><a href="category.html?type=dining">8-Seater Sets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Bathroom</a>
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Vanities & Storage</a>
+                      <ul class="menu level-4">
+                        <li><a href="category.html?type=bathroom">Wall Vanities</a></li>
+                        <li><a href="category.html?type=bathroom">Mirror Cabinets</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 2: Office & Reception -->
+            <li>
+              <a href="#">Office & Reception</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Office Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=office">Executive Desks</a></li>
+                    <li><a href="category.html?type=office">Ergonomic Chairs</a></li>
+                    <li><a href="category.html?type=office">Workstations</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Reception Area</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=reception">Reception Desks</a></li>
+                    <li><a href="category.html?type=reception">Waiting Chairs</a></li>
+                    <li><a href="category.html?type=reception">Lounge Seating</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 3: Institutional -->
+            <li>
+              <a href="#">Institutional</a>
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">School Furniture</a>
+                  <ul class="menu level-3">
+                    <li><a href="category.html?type=school">Student Desks</a></li>
+                    <li><a href="category.html?type=school">Classroom Benches</a></li>
+                    <li><a href="category.html?type=school">Study Tables</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">College/University</a>
+                  <ul class="menu level-2">
+                    <li><a href="category.html?type=school">Auditorium Chairs</a></li>
+                    <li><a href="category.html?type=school">Lab Tables</a></li>
+                    <li><a href="category.html?type=school">Seminar Desks</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Sector 4: Outdoor -->
+            <li>
+              <a href="#">Outdoor</a>
+              <ul class="menu level-2">
+                <li><a href="category.html?type=outdoor">Garden Benches</a></li>
+                <li><a href="category.html?type=outdoor">Outdoor Swings</a></li>
+                <li><a href="category.html?type=outdoor">Patio Sets</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <li><a href="custom-order.html" target="_blank">Custom Order</a></li>
+        <li><a href="track.html">Track Order</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+      <div class="nav-icon">
+        <a href="wishlist.html">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <span id="wishlist-count">0</span>
+      </div>
+      
+      <div class="nav-icon cart-icon">
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <span id="cart-count">0</span>
+      </div>
+
+      <a href="login.html">
+        <button class="auth-btn">
+          Login <span>/</span> Signup
+        </button>
+      </a>
+      <span id="user-name" style="margin-left:10px;"></span>
+
+      <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+  </header>
+    <div class="login-page">
+
+      <!-- HEADER -->
+      <div class="login-header">
+        <h1>Pradeep Furniture</h1>
+        <p>Crafting Your Dream Home</p>
+      </div>
+
+      <!-- CARD -->
+      <div class="login-card">
+
+        <!-- TITLE -->
+        <h2 class="title">Welcome Back!</h2>
+
+        <!-- SOCIAL -->
+        <div class="social-login">
+
+          <button class="social-btn" onclick="googleLogin(event)">
+            <i class="fab fa-google"></i>
+            Google
+          </button>
+
+          <button class="social-btn" onclick="githubLogin(event)">
+            <i class="fab fa-github"></i>
+            Github
+          </button>
+
+          <button class="social-btn" onclick="twitterLogin(event)">
+            <i class="fa-brands fa-x-twitter"></i>
+            Twitter
+          </button>
+
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="divider">
+          <span></span>
+          <p>OR</p>
+          <span></span>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="input-box">
+          <input type="email" id="login-email" placeholder=" " class="input">
+          <label>Enter Email Address</label>
+        </div>
+
+        <div class="divider" style="margin: 0px 0;"><span></span><p style="font-size:12px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">or</p><span></span></div>
+
+        <!-- MOBILE -->
+        <div class="input-box">
+          <input type="text" id="login-mobile" placeholder=" " class="input" maxlength="10">
+          <label>Enter Mobile Number</label>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="input-box password-box">
+          <input type="password" id="login-password" placeholder=" " class="input" required>
+          <label>Password</label>
+          <i class="fa fa-eye" onclick="togglePassword()"></i>
+        </div>
+
+        <!-- OPTIONS -->
+        <div class="options">
+          <label><input type="checkbox"> Remember Me</label>
+          <a href="forgot-password.html">Forgot Password?</a>
+        </div>
+
+        <!-- BUTTON -->
+        <button class="btn" id="login-submit-btn" onclick="login()">Login</button>
+
+        <!-- SIGNUP -->
+        <p class="signup">
+          Don't have an account? <a href="signup.html">Sign Up</a>
+        </p>
+
+      </div>
+
+    </div>
+
+    <script>
+      function togglePassword() {
+        const pass = document.getElementById("login-password");
+        pass.type = pass.type === "password" ? "text" : "password";
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // 1. Enter Key Support
+        const passInput = document.getElementById("login-password");
+        if (passInput) {
+            passInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") window.login();
+            });
+        }
+        
+        const loginEmail = document.getElementById("login-email");
+        const loginMobile = document.getElementById("login-mobile");
+        
+        if (loginEmail && loginMobile) {
+            const emailBox = loginEmail.parentElement;
+            const mobileBox = loginMobile.parentElement;
+            const divider = emailBox.nextElementSibling;
+
+            loginEmail.addEventListener("input", () => {
+                if (loginEmail.value.length > 0) {
+                    loginMobile.value = "";
+                    mobileBox.style.display = "none";
+                    divider.style.display = "none";
+                } else {
+                    mobileBox.style.display = "";
+                    divider.style.display = "";
+                }
+            });
+            loginMobile.addEventListener("input", () => {
+                let val = loginMobile.value;
+                loginMobile.value = val.replace(/[^0-9]/g, '');
+                if (loginMobile.value.length > 0) {
+                    loginEmail.value = "";
+                    emailBox.style.display = "none";
+                    divider.style.display = "none";
+                } else {
+                    emailBox.style.display = "";
+                    divider.style.display = "";
+                }
+            });
+        }
+
+        // Initialize OTP Verification for Email login field
+        window.setupEmailOTP("login-email", "login-submit-btn");
+      });
+    </script>
+    <script type="module" src="auth.js"></script>
+    <script src="theme.js"></script>
+  </body>
+</html>
+
+</html>

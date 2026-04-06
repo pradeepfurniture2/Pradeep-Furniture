@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Dashboard | Pradeep Furniture</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="partner-dashboard.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <!-- Font Awesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="toast.css">
+    <script src="toast.js"></script>
+    
+    <script>
+        (function () {
+          const theme = localStorage.getItem('theme') || 'dark';
+          document.documentElement.setAttribute('data-theme', theme);
+        })();
+
+        window.toggleAdminSidebar = function() {
+            const sidebar = document.querySelector(".admin-sidebar");
+            const overlay = document.getElementById("sidebar-overlay") || createOverlay();
+            sidebar.classList.toggle("active");
+            overlay.classList.toggle("active");
+        };
+
+        function createOverlay() {
+            const overlay = document.createElement("div");
+            overlay.id = "sidebar-overlay";
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.5);
+                backdrop-filter: blur(4px);
+                z-index: 999;
+                display: none;
+                transition: 0.3s;
+            `;
+            overlay.onclick = window.toggleAdminSidebar;
+            document.body.appendChild(overlay);
+            
+            const style = document.createElement("style");
+            style.innerHTML = "#sidebar-overlay.active { display: block; }";
+            document.head.appendChild(style);
+            
+            return overlay;
+        }
+    </script>
+</head>
+<body class="partner-page">
+
+    <!-- 🔝 NAVBAR -->
+    <header class="navbar partner-navbar">
+      <div class="nav-left">
+        <div class="menu-toggle-partner" onclick="toggleAdminSidebar()" style="display:none;">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <a href="index.html" class="logo"><img src="images/logo.png" alt="logo"></a>
+        <span class="partner-badge">Showroom Partner</span>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Main Website</a></li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <span id="partner-name-header">Partner Portal</span>
+        <button id="theme-toggle" class="theme-btn">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+        
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-brand">
+              <h2 style="font-family:'Playfair Display'; color:var(--accent-color); padding: 0 15px;">Partner Panel</h2>
+            </div>
+            <a href="javascript:void(0)" onclick="switchTab('overview')" class="nav-item tab-link active" id="tab-overview">
+                <i class="fa-solid fa-gauge-high"></i> <span class="nav-text">Dashboard</span>
+            </a>
+            <a href="javascript:void(0)" onclick="switchTab('leads')" class="nav-item tab-link" id="tab-leads" style="position:relative;">
+                <i class="fa-solid fa-user-tag"></i> 
+                <span class="nav-text">My Leads</span>
+                <span id="sidebar-leads-count" style="display:none; position:absolute; right:15px; background:var(--accent-color); color:white; font-size:10px; padding:2px 7px; border-radius:10px; font-weight:700;">0</span>
+            </a>
+            <a href="javascript:void(0)" onclick="switchTab('catalog')" class="nav-item tab-link" id="tab-catalog">
+                <i class="fa-solid fa-couch"></i> <span class="nav-text">Premium Catalog</span>
+            </a>
+            <a href="javascript:void(0)" onclick="switchTab('earnings')" class="nav-item tab-link" id="tab-earnings">
+                <i class="fa-solid fa-indian-rupee-sign"></i> <span class="nav-text">Earnings</span>
+            </a>
+            <a href="javascript:void(0)" onclick="switchTab('settings')" class="nav-item tab-link" id="tab-settings">
+                <i class="fa-solid fa-store"></i> <span class="nav-text">Showroom Profile</span>
+            </a>
+            <div style="flex-grow: 1;"></div>
+            <a href="#" class="nav-item" onclick="window.logout()">
+                <i class="fa-solid fa-right-from-bracket"></i> <span class="nav-text">Logout</span>
+            </a>
+        </aside>
+
+        <!-- MAIN AREA -->
+        <main class="admin-main">
+
+            <!-- 🏠 OVERVIEW SECTION -->
+            <section id="overview-section" class="tab-content">
+                <div class="admin-header">
+                    <div>
+                        <h1 id="welcome-partner">Showroom Partner Dashboard</h1>
+                        <p>Welcome back! Here's your showroom performance summary.</p>
+                    </div>
+                </div>
+
+                <!-- METRICS -->
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-total-leads">0</h3>
+                            <p>Total Leads</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon" style="background:var(--accent-light); color:var(--accent-color);"><i class="fa-solid fa-check-circle"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-converted">0</h3>
+                            <p>Converted Orders</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-earnings">₹0</h3>
+                            <p>Total Earnings</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon" style="background:#ffebee; color:#d32f2f;"><i class="fa-solid fa-ban"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-cancelled">0</h3>
+                            <p>Cancelled Leads</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- RECENT LEADS -->
+                    <div class="glass-panel">
+                        <h2><i class="fa-solid fa-clock-rotate-left"></i> Recent Leads Activity</h2>
+                        <div style="overflow-x: auto;">
+                            <table class="premium-table">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Interest</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-leads-list">
+                                    <tr><td colspan="4" style="text-align:center;">Fetching data...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- QUICK SUBMIT -->
+                    <div class="glass-panel">
+                        <h2><i class="fa-solid fa-plus-circle"></i> Submit New Lead</h2>
+                        <form id="quick-lead-form" class="premium-form">
+                            <div class="form-group">
+                                <label>Customer Name</label>
+                                <input type="text" id="lead-name" required placeholder="Enter name">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" id="lead-phone" required placeholder="Enter phone">
+                            </div>
+                            <div class="form-group">
+                                <label>Product Interest</label>
+                                <select id="lead-product">
+                                    <option value="Sofa">Luxury Sofa</option>
+                                    <option value="Bed">King Size Bed</option>
+                                    <option value="Dining">Dining Table</option>
+                                    <option value="Custom">Custom Order</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-primary" style="width:100%; margin-top:15px;">
+                                <i class="fa-solid fa-paper-plane"></i> Submit Lead
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 👥 LEADS SECTION -->
+            <section id="leads-section" class="tab-content" style="display: none;">
+                <div class="admin-header">
+                    <h1>Lead Management</h1>
+                    <button class="btn-primary" onclick="switchTab('overview')"><i class="fa-solid fa-plus"></i> Add New Lead</button>
+                </div>
+                <div class="glass-panel">
+                    <table class="premium-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Preferred Product</th>
+                                <th>Status</th>
+                                <th>Submitted On</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all-leads-list">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 🛋️ CATALOG SECTION -->
+            <section id="catalog-section" class="tab-content" style="display: none;">
+                <div class="admin-header">
+                    <div>
+                        <h1>My Custom Catalog</h1>
+                        <p>Upload your showroom products for customers and admins to review.</p>
+                    </div>
+                    <button class="btn-primary" onclick="document.getElementById('catalog-upload-form-container').style.display='block'"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Product</button>
+                </div>
+
+                <div class="glass-panel" id="catalog-upload-form-container" style="display: none; margin-bottom: 30px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
+                        <h2 style="margin:0;"><i class="fa-solid fa-image"></i> Add New Product</h2>
+                        <button onclick="document.getElementById('catalog-upload-form-container').style.display='none'" style="background:transparent; border:none; font-size:20px; color:var(--text-muted); cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <form id="catalog-upload-form" class="premium-form">
+                        <div class="form-grid">
+                            <div class="form-group" style="grid-column: span 1;">
+                                <label>Product Name</label>
+                                <input type="text" id="cat-name" required placeholder="e.g. Modern Velvet Sofa">
+                            </div>
+                            <div class="form-group" style="grid-column: span 1;">
+                                <label>Estimated Price (₹)</label>
+                                <input type="number" id="cat-price" required placeholder="e.g. 25000">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label>Product Description (Optional)</label>
+                                <textarea id="cat-desc" rows="2" placeholder="Brief details about material, style, etc."></textarea>
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label>Product Image</label>
+                                <input type="file" id="cat-image" accept="image/*" required style="padding:10px; background:transparent; border:1px dashed var(--accent-color);">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary" id="cat-submit-btn" style="margin-top:20px;">Upload to Catalog</button>
+                    </form>
+                </div>
+
+                <div class="catalog-grid" id="partner-catalog-grid">
+                    <!-- Dynamic Catalog Content -->
+                </div>
+            </section>
+
+            <!-- 💰 EARNINGS SECTION -->
+            <section id="earnings-section" class="tab-content" style="display: none;">
+                <div class="admin-header">
+                    <h1>Commission & Earnings</h1>
+                </div>
+                <div class="metric-grid">
+                    <div class="glass-panel">
+                        <h3>Pending Payment</h3>
+                        <h1 style="font-size: 42px; color: var(--accent-color);" id="earnings-pending">₹0</h1>
+                    </div>
+                    <div class="glass-panel">
+                        <h3>Paid to Date</h3>
+                        <h1 style="font-size: 42px; color: #2e7d32;" id="earnings-paid">₹0</h1>
+                    </div>
+                </div>
+                <div class="glass-panel" style="margin-top:30px;">
+                    <h2>Payment History</h2>
+                    <table class="premium-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer Name</th>
+                                <th>Commission Rate</th>
+                                <th>Amount Earned</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="earnings-table">
+                            <!-- History -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ⚙️ SETTINGS SECTION -->
+            <section id="settings-section" class="tab-content" style="display: none;">
+                <div class="admin-header">
+                    <h1>Showroom Profile</h1>
+                </div>
+                <div class="glass-panel">
+                    <form id="partner-profile-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Showroom Name</label>
+                                <input type="text" id="prof-showroom-name" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Partner Name</label>
+                                <input type="text" id="prof-partner-name">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" id="prof-email" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Number</label>
+                                <input type="tel" id="prof-phone">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label>Showroom Address</label>
+                                <textarea id="prof-address" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary" style="margin-top:20px;">Save Profile Changes</button>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="partner-dashboard.js"></script>
+    <script src="theme.js"></script>
+</body>
+</html>

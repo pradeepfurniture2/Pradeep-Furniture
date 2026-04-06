@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout</title>
+
+  <link rel="stylesheet" href="checkout.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      ☰
+    </div>
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="logo">
+
+    </a>
+
+    <!-- LINKS -->
+    <nav>
+      <ul class="nav-links">
+
+        <li><a href="index.html" class="active">Home</a></li>
+
+        <!-- DROPDOWN -->
+        <li class="dropdown">
+          <a href="#">Furniture Categories ▾</a>
+
+          <ul class="menu level-1">
+
+            <li>
+              <a href="#">Living Room ▸</a>
+
+              <ul class="menu level-2">
+                <li>
+                  <a href="#">Sofas ▸</a>
+
+                  <ul class="menu level-3">
+                    <li>
+                      <a href="#">Leather Sofa ▸</a>
+
+                      <ul class="menu level-4">
+                        <li><a href="#">2 Seater</a></li>
+                        <li><a href="#">3 Seater</a></li>
+                        <li><a href="#">L Shape</a></li>
+                      </ul>
+
+                    </li>
+                    <li><a href="#">Fabric Sofa</a></li>
+                  </ul>
+
+                </li>
+                <li><a href="#">Center Table</a></li>
+              </ul>
+
+            </li>
+
+            <li><a href="#">Bedroom</a></li>
+
+          </ul>
+        </li>
+
+        <li><a href="custom-order.html" target="_blank">Custom Order</a></li>
+        <li><a href="track.html">Track Order</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+
+      </ul>
+    </nav>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+
+
+      <div class="nav-icon">
+        <a href="wishlist.html">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <span id="wishlist-count">0</span>
+      </div>
+      
+      <div class="nav-icon cart-icon">
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <span id="cart-count">0</span>
+      </div>
+
+      <a href="login.html">
+        <button class="auth-btn">
+          Login <span>/</span> Signup
+        </button>
+      </a>
+      <span id="user-name" style="margin-left:10px;"></span>
+
+      <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+    </div>
+
+  </header>
+
+  <div class="checkout-page">
+
+    <!-- 🚀 PROGRESS STEPPER -->
+    <div class="checkout-stepper">
+      <div class="step active">
+        <div class="step-icon"><i class="fa-solid fa-address-card"></i></div>
+        <span>Information</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <span>Shipping</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-icon"><i class="fa-solid fa-credit-card"></i></div>
+        <span>Payment</span>
+      </div>
+    </div>
+
+    <div class="checkout-container">
+
+      <!-- LEFT COLUMN -->
+      <div class="checkout-left">
+
+        <!-- 🏢 SHIPPING ADDRESS CARD -->
+        <div class="address-box glass-card">
+          <h3><i class="fa-solid fa-map-location-dot"></i> Shipping Details</h3>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <input type="text" id="name" placeholder=" " required>
+              <label for="name">Full Name</label>
+            </div>
+            <div class="form-group">
+              <input type="number" id="phone" placeholder=" " required>
+              <label for="phone">Mobile Number</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="email" id="email" placeholder=" " required>
+            <label for="email">Email Address</label>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <select id="state" onchange="updateTotal()" required>
+                <option value="" disabled selected hidden></option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="West Bengal">West Bengal</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Assam">Assam</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Goa">Goa</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+              </select>
+              <label for="state">State</label>
+            </div>
+            <div class="form-group">
+              <input type="text" id="city" placeholder=" " oninput="updateTotal()" required>
+              <label for="city">City</label>
+            </div>
+          </div>
+
+          <div id="distance-container" style="display:none; margin: 15px 0;">
+            <div class="distance-badge">
+              <i class="fa-solid fa-location-crosshairs"></i>
+              <span>Select Your Distance from Agra Office:</span>
+            </div>
+            <select id="distance-tier" onchange="updateTotal()">
+              <option value="under5">Under 5km (Elite Free Delivery) 📍</option>
+              <option value="under50">Under 50km (₹500)</option>
+              <option value="50-200">50km - 200km (₹1,000)</option>
+              <option value="200-1000">200km - 1000km (₹2,500)</option>
+              <option value="over1000">Over 1000km (₹3,500)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <input type="number" id="pincode" placeholder=" " required>
+            <label for="pincode">Pincode</label>
+          </div>
+
+          <div class="form-group">
+            <textarea id="address" placeholder=" " required></textarea>
+            <label for="address">Full Address (House No, Street, Landmark)</label>
+          </div>
+        </div>
+
+        <!-- 📦 ORDER REVIEW CARD -->
+        <div class="order-review glass-card">
+          <h3><i class="fa-solid fa-box-open"></i> Review Order Items</h3>
+          <div id="review-items-list" class="review-list"></div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: SUMMARY -->
+      <div class="checkout-right">
+        <div class="summary glass-card premium-receipt">
+          <h3>Order Summary</h3>
+
+          <div class="receipt-item">
+            <span>Subtotal</span>
+            <span class="value">₹<span id="subtotal">0</span></span>
+          </div>
+          <div class="receipt-item">
+            <span>Shipping</span>
+            <span class="value" id="shipping-amount">₹0</span>
+          </div>
+          <div class="receipt-item">
+            <span>GST (18%)</span>
+            <span class="value">₹<span id="gst">0</span></span>
+          </div>
+          <div class="receipt-item">
+            <span>CGST (9%)</span>
+            <span class="value">₹<span id="cgst">0</span></span>
+          </div>
+          <div class="receipt-item">
+            <span>SGST (9%)</span>
+            <span class="value">₹<span id="sgst">0</span></span>
+          </div>
+
+          <div class="receipt-divider"></div>
+
+          <div class="receipt-total">
+            <span>Grand Total</span>
+            <span class="total-value">₹<span id="total">0</span></span>
+          </div>
+
+          <div class="secure-badge">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Secure 256-bit SSL Encrypted Payment</span>
+          </div>
+
+          <button class="place-order elite-btn" onclick="placeOrder()">
+            Continue to Shipping <i class="fa-solid fa-truck-fast"></i>
+          </button>
+          
+          <p class="terms-note">By placing your order, you agree to our Terms of Service.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="module">
+
+    import { auth, db } from "./firebase.js";
+    import { collection, addDoc, serverTimestamp, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let discountValue = 0;
+    
+    let coupons = [];
+    async function fetchCoupons() {
+      try {
+        const q = query(collection(db, "coupons"), orderBy("createdAt", "desc"));
+        const snap = await getDocs(q);
+        coupons = snap.docs.map(doc => doc.data());
+      } catch (err) {
+        console.error("Coupon Fetch Error:", err);
+      }
+    }
+    fetchCoupons();
+
+    /* ================= TOTAL ================= */
+    window.updateTotal = function() {
+      let subtotal = 0;
+      cart.forEach(item => { subtotal += item.price * item.qty; });
+
+      // 🚚 ADVANCE DISTANCE-BASED SHIPPING
+      const city = document.getElementById("city").value.trim().toLowerCase();
+      const state = document.getElementById("state").value.trim();
+      const tierSelect = document.getElementById("distance-tier");
+      const distContainer = document.getElementById("distance-container");
+      
+      let shipping = 0;
+      
+      if (city === "agra" || state === "Uttar Pradesh") {
+          distContainer.style.display = "block";
+          const tier = tierSelect.value;
+          if (tier === "under5") shipping = 0;
+          else if (tier === "under50") shipping = 500;
+          else if (tier === "50-200") shipping = 1000;
+          else if (tier === "200-1000") shipping = 2500;
+          else shipping = 3500;
+      } else if (state) {
+          // National defaults based on state
+          distContainer.style.display = "none";
+          const farStates = ["Kerala", "Tamil Nadu", "Karnataka", "Andhra Pradesh", "Telangana", "Assam", "Manipur", "Meghalaya"];
+          if (farStates.includes(state)) shipping = 3500;
+          else shipping = 2500;
+      } else {
+          distContainer.style.display = "none";
+          shipping = 0;
+      }
+
+      let gst = Math.round(subtotal * 0.18);
+      let cgst = Math.round(subtotal * 0.09);
+      let sgst = Math.round(subtotal * 0.09);
+      let total = subtotal + shipping + gst - discountValue;
+
+      document.getElementById("subtotal").innerText = subtotal;
+      document.getElementById("gst").innerText = gst;
+      document.getElementById("cgst").innerText = cgst;
+      document.getElementById("sgst").innerText = sgst;
+      document.getElementById("total").innerText = total;
+
+      let shipEl = document.getElementById("shipping-amount");
+      if (shipEl) {
+          if (!state) {
+              shipEl.innerText = "Select State";
+              shipEl.style.fontSize = "12px";
+              shipEl.style.color = "var(--text-muted)";
+          } else {
+              shipEl.innerText = shipping === 0 ? "FREE 📍" : "₹" + shipping;
+              shipEl.style.fontSize = "inherit";
+              shipEl.style.color = "var(--text-primary)";
+          }
+      }
+    }
+
+    // Attach listeners for real-time calculation
+    document.getElementById("city").addEventListener("input", updateTotal);
+    document.getElementById("state").addEventListener("input", updateTotal);
+
+    /* ================= PLACE ORDER ================= */
+    window.placeOrder = async function() {
+        // 1. Check Login
+        const user = auth.currentUser;
+        if (!user) {
+            window.showToast("Please login to place order! ⚠️", "error");
+            return;
+        }
+
+        // 2. Validate Fields
+        const name = document.getElementById("name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const city = document.getElementById("city").value.trim();
+        const state = document.getElementById("state").value.trim();
+        const fullAddress = document.getElementById("address").value.trim();
+
+        if (!name || !phone || !city || !state || !fullAddress) {
+            window.showToast("Please fill all shipping details! ⚠️", "error");
+            return;
+        }
+
+        try {
+            const btn = document.querySelector(".place-order");
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing Order...`;
+            btn.disabled = true;
+
+            const subtotal = parseInt(document.getElementById("subtotal").innerText);
+            const shipping = parseInt(document.getElementById("shipping-amount").innerText.replace("₹", "")) || 0;
+            const gst = parseInt(document.getElementById("gst").innerText);
+            const cgst = parseInt(document.getElementById("cgst").innerText);
+            const sgst = parseInt(document.getElementById("sgst").innerText);
+            const total = parseInt(document.getElementById("total").innerText);
+
+            const orderData = {
+                userId: user.uid,
+                customer: { 
+                  name, 
+                  mobile: phone, 
+                  email: user.email || "N/A", 
+                  city, 
+                  state, 
+                  address: fullAddress,
+                  pincode: document.getElementById("pincode").value.trim()
+                },
+                furniture: { type: "Cart Order", items: cart },
+                summary: { subtotal, shipping, gst, cgst, sgst, total },
+                status: "Pending",
+                currentStep: 1,
+                statusHistory: [{ status: "Pending", note: "Order placed from cart.", updatedAt: new Date().toISOString() }],
+                createdAt: serverTimestamp()
+            };
+
+            console.log("Submitting Order Data:", orderData);
+
+            const docRef = await addDoc(collection(db, "custom_orders"), orderData);
+            console.log("Order Successful, doc ID:", docRef.id);
+            
+            // Clear Cart
+            localStorage.removeItem("cart");
+            window.dispatchEvent(new Event("cartUpdated"));
+            
+            window.showToast("Order Created! Proceeding to Shipping...", "success");
+            
+            setTimeout(() => {
+                window.location.href = `shipping.html?orderId=${docRef.id}`;
+            }, 1500);
+
+        } catch (error) {
+            console.error("Order Error Detail:", error);
+            window.showToast("Failed to place order: " + error.message, "error");
+            
+            const btn = document.querySelector(".place-order");
+            btn.innerHTML = `Continue to Shipping <i class="fa-solid fa-truck-fast"></i>`;
+            btn.disabled = false;
+        }
+    };
+
+    /* ================= APPLY COUPON ================= */
+    window.applyCoupon = function () {
+
+      let code = document.getElementById("couponInput").value.trim().toUpperCase();
+
+      let found = coupons.find(c => c.code === code);
+
+      if (found) {
+
+        let subtotal = 0;
+
+        cart.forEach(item => {
+          subtotal += item.price * item.qty;
+        });
+
+        if (found.type === "flat") {
+          discountValue = found.value;
+        }
+
+        if (found.type === "percent") {
+          discountValue = Math.round(subtotal * (found.value / 100));
+        }
+
+        alert("Coupon Applied ✅");
+
+      } else {
+        discountValue = 0;
+        alert("Invalid Coupon ❌");
+      }
+
+      updateTotal();
+    };
+
+    /* ================= RENDER REVIEW ITEMS ================= */
+    function renderReviewItems() {
+        const list = document.getElementById("review-items-list");
+        if (!list) return;
+        
+        if (cart.length === 0) {
+            list.innerHTML = `<p style="text-align:center; color:var(--text-muted);">No items in cart.</p>`;
+            return;
+        }
+
+        list.innerHTML = cart.map(item => `
+            <div class="review-item">
+                <img src="${item.image}" alt="${item.name}">
+                <div class="review-details">
+                    <p class="name">${item.name}</p>
+                    <p class="qty">Qty: ${item.qty} × ₹${item.price.toLocaleString()}</p>
+                </div>
+                <div class="review-price">₹${(item.price * item.qty).toLocaleString()}</div>
+            </div>
+        `).join("");
+    }
+
+    /* ================= INIT ================= */
+    updateTotal();
+    renderReviewItems();
+
+  </script>
+  <script>
+function updateCartCountLive() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let total = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
+
+  let el = document.getElementById("cart-count");
+  if (el) el.innerText = total;
+}
+
+/* 🔥 INITIAL */
+updateCartCountLive();
+
+/* 🔥 CUSTOM EVENT LISTENER */
+window.addEventListener("cartUpdated", updateCartCountLive);
+</script>
+<script src="theme.js"></script>
+</body>
+
+</html>
